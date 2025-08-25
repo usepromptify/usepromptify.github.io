@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promptify - Documentation</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1b23;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(167, 139, 250, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(99, 102, 241, 0.2) 0%, transparent 50%);
+            min-height: 100vh;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding: 2rem 0;
+        }
+        
+        .logo-section {
+            margin-bottom: 2rem;
+        }
+        
+        .logo-placeholder {
+            width: 350px;
+            height: 120px;
+            margin: 0 auto 2rem;
+            border: 2px dashed rgba(99, 102, 241, 0.3);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(99, 102, 241, 0.05);
+            color: #6366f1;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        
+        /* Replace this with your logo image */
+        .logo-image {
+            width: 350px;
+            height: 120px;
+            margin: 0 auto 2rem;
+            object-fit: contain;
+            filter: drop-shadow(0 15px 35px rgba(99, 102, 241, 0.4));
+            display: block;
+        }
+        
+        .logo-image {
+            width: 300px;
+            height: auto;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 10px 30px rgba(99, 102, 241, 0.4));
+        }
+        
+        .tagline {
+            font-size: 1.5rem;
+            color: #f1f5f9;
+            font-weight: 500;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+            font-family: 'Poppins', sans-serif;
+            text-shadow: 0 2px 20px rgba(99, 102, 241, 0.3);
+        }
+        
+        .highlight {
+            background: linear-gradient(135deg, #6366f1, #a78bfa, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            position: relative;
+        }
+        
+        .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            opacity: 0.3;
+            border-radius: 1px;
+        }
+        
+        .card {
+            background: rgba(30, 32, 42, 0.9);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 3rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.5), transparent);
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .section-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+        }
+        
+        .section-icon i {
+            color: white;
+            font-size: 20px;
+        }
+        
+        h2 {
+            font-size: 2.3rem;
+            color: #f8fafc;
+            font-weight: 800;
+            margin: 0;
+            font-family: 'Space Grotesk', sans-serif;
+            text-shadow: 0 2px 15px rgba(99, 102, 241, 0.2);
+        }
+        
+        h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: #e2e8f0;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        h3 i {
+            color: #6366f1;
+            font-size: 1.2rem;
+        }
+        
+        p {
+            margin-bottom: 1.5rem;
+            color: #cbd5e1;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin: 2.5rem 0;
+        }
+        
+        .feature-card {
+            background: rgba(15, 17, 25, 0.8);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
+            border-color: rgba(99, 102, 241, 0.3);
+        }
+        
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+        
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+        }
+        
+        .feature-icon i {
+            color: white;
+            font-size: 24px;
+        }
+        
+        .hotkey {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 12px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0.5rem;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.95rem;
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+            transition: transform 0.2s ease;
+        }
+        
+        .hotkey:hover {
+            transform: translateY(-2px);
+        }
+        
+        .hotkey i {
+            font-size: 0.9rem;
+        }
+        
+        .steps {
+            counter-reset: step-counter;
+            margin-top: 2rem;
+        }
+        
+        .step {
+            counter-increment: step-counter;
+            margin-bottom: 2rem;
+            padding: 2.5rem;
+            background: rgba(15, 17, 25, 0.6);
+            border-radius: 20px;
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .step:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+            transform: translateX(10px);
+        }
+        
+        .step::before {
+            content: counter(step-counter);
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            position: absolute;
+            left: -22px;
+            top: 50%;
+            transform: translateY(-50%);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+        }
+        
+        .step-content {
+            margin-left: 1.5rem;
+        }
+        
+        .step h3 {
+            margin-bottom: 1rem;
+            color: #f1f5f9;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .step p {
+            color: #cbd5e1;
+            margin-bottom: 0;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .warning {
+            background: rgba(245, 158, 11, 0.1);
+            border: 2px solid rgba(245, 158, 11, 0.3);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+        
+        .warning-icon {
+            width: 40px;
+            height: 40px;
+            background: #f59e0b;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+        
+        .warning-icon i {
+            color: white;
+            font-size: 18px;
+        }
+        
+        .warning-content h4 {
+            color: #fbbf24;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .warning-content p {
+            color: #d1d5db;
+            margin: 0;
+        }
+        
+        .iterations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .iteration-card {
+            background: rgba(15, 17, 25, 0.8);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .iteration-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(99, 102, 241, 0.3);
+        }
+        
+        .iteration-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+        
+        .benefits-list {
+            list-style: none;
+            padding: 0;
+            margin: 2rem 0;
+        }
+        
+        .benefits-list li {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(15, 17, 25, 0.6);
+            border-radius: 12px;
+            border: 1px solid rgba(99, 102, 241, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .benefits-list li:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+            transform: translateX(10px);
+        }
+        
+        .benefit-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .benefit-icon i {
+            color: white;
+            font-size: 16px;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .contact-card {
+            background: rgba(15, 17, 25, 0.8);
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
+        }
+        
+        .contact-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+        }
+        
+        .contact-avatar i {
+            color: white;
+            font-size: 32px;
+        }
+        
+        .contact-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #f1f5f9;
+            margin-bottom: 0.5rem;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .email-link {
+            color: #8b5cf6;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s ease;
+        }
+        
+        .email-link:hover {
+            color: #6366f1;
+        }
+        
+        .external-link {
+            color: #8b5cf6;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .external-link:hover {
+            color: #6366f1;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .logo-image {
+                width: 250px;
+            }
+            
+            .card {
+                padding: 2rem;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .iterations-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .step {
+                margin-left: 1rem;
+            }
+            
+            .step-content {
+                margin-left: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-section">
+                <!-- Replace the placeholder div below with your logo image -->
+                <!-- <img src="your-logo-image.png" alt="Promptify Logo" class="logo-image"> -->
+                <img src="icons/Screenshot 2025-08-25 144843.png" alt="Promptify Logo" class="logo-image">
+                
+                <svg class="logo-image" viewBox="0 0 400 100" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                    <!-- This SVG is hidden - replace with your actual logo image above -->
+                    <defs>
+                        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#6366f1"/>
+                            <stop offset="100%" style="stop-color:#8b5cf6"/>
+                        </linearGradient>
+                    </defs>
+                    <rect x="10" y="20" width="50" height="35" rx="8" fill="url(#logoGradient)" stroke="url(#logoGradient)" stroke-width="2"/>
+                    <path d="M35 40 L45 50 L35 45 Z" fill="url(#logoGradient)"/>
+                    <path d="M25 30 L40 30 M35 25 L40 30 L35 35" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <text x="80" y="45" font-family="Inter, sans-serif" font-size="28" font-weight="600" fill="url(#logoGradient)">promptify</text>
+                </svg>
+            </div>
+            <p class="tagline">Transform your prompts instantly with <span class="highlight">AI-powered refinement</span> - because great prompts unlock smarter responses</p>
+        </header>
+
+        <div class="card">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-magic"></i>
+                </div>
+                <h2>✨ What is Promptify?</h2>
+            </div>
+            
+            <p><i class="fas fa-quote-left" style="color: #6366f1; margin-right: 0.5rem;"></i>In the world of AI, <strong class="highlight">"garbage in equals garbage out"</strong> - which is why refined, well-crafted prompts are essential for getting intelligent, accurate responses.</p>
+            
+            <p>Promptify is a lightning-fast Chrome extension that revolutionizes how you interact with AI applications. Transform basic prompts into sophisticated, detailed instructions that unlock the full potential of AI models.</p>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3><i class="fas fa-zap"></i>Instant Activation</h3>
+                    <p>Simply highlight any text and click the popup button to refine your prompt instantly - no waiting, no complexity.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-sliders-h"></i>
+                    </div>
+                    <h3><i class="fas fa-cogs"></i>Smart Refinement</h3>
+                    <p>Control the level of detail with 1-5 refinement iterations - choose between lightning speed or maximum precision.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-slash"></i>
+                    </div>
+                    <h3><i class="fas fa-rocket"></i>Zero Hassle</h3>
+                    <p>No sign-ups, no subscriptions, no accounts. Just pure speed and efficiency with your own API key.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-play-circle"></i>
+                </div>
+                <h2>How It Works</h2>
+            </div>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-content">
+                        <h3><i class="fas fa-cog"></i>Access Settings</h3>
+                        <p>While on any AI application, press <span class="hotkey"><i class="fas fa-keyboard"></i>Ctrl + B</span> (default) to open the Promptify settings page and configure your preferences. <em style="color: #a78bfa;">Note: You can customize these keyboard shortcuts in the settings!</em></p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-content">
+                        <h3><i class="fas fa-key"></i>Configure API & Settings</h3>
+                        <p>Enter your Gemini API key and set your preferred number of refinement iterations (1-5) for optimal results.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-content">
+                        <h3><i class="fas fa-power-off"></i>Activate Promptify</h3>
+                        <p>Press <span class="hotkey"><i class="fas fa-keyboard"></i>Ctrl + Y</span> (default) to activate Promptify on the current AI application page. <em style="color: #a78bfa;">Customize this shortcut to your preference in settings!</em></p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-content">
+                        <h3><i class="fas fa-magic"></i>Refine & Transform</h3>
+                        <p>Highlight any text you want to improve, click the popup button, and watch as your basic prompt transforms into a refined, detailed instruction.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-key"></i>
+                </div>
+                <h2>Getting Your Gemini API Key</h2>
+            </div>
+            
+            <div class="warning">
+                <div class="warning-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="warning-content">
+                    <h4>API Key Required</h4>
+                    <p>You'll need a Google Gemini API key to power Promptify's intelligent refinement features.</p>
+                </div>
+            </div>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-content">
+                        <h3><i class="fab fa-google"></i>Visit Google AI Studio</h3>
+                        <p>Navigate to <strong>aistudio.google.com</strong> and sign in with your Google account to access the API dashboard.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-content">
+                        <h3><i class="fas fa-plus-circle"></i>Generate Your Key</h3>
+                        <p>Navigate to the "Get API Key" section and click "Create API Key" to generate your unique authentication key.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-content">
+                        <h3><i class="fas fa-clipboard"></i>Copy & Configure</h3>
+                        <p>Copy the generated API key and paste it into Promptify's settings page for instant activation.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <p><strong><i class="fas fa-lightbulb" style="color: #6366f1; margin-right: 0.5rem;"></i>Pro Tip:</strong> Keep your API key secure and never share it publicly. For detailed step-by-step instructions, visit: <a href="https://www.merge.dev/blog/gemini-api-key" class="external-link" target="_blank"><i class="fas fa-external-link-alt"></i>merge.dev/blog/gemini-api-key</a></p>
+        </div>
+
+        <div class="card">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-sliders-h"></i>
+                </div>
+                <h2>Refinement Iterations Explained</h2>
+            </div>
+            
+            <div class="iterations-grid">
+                <div class="iteration-card">
+                    <div class="iteration-number">1-2</div>
+                    <h3><i class="fas fa-tachometer-alt"></i>Speed Focus</h3>
+                    <p>Quick refinements for basic prompt improvements. Perfect for simple tasks and when you need lightning-fast results.</p>
+                </div>
+                <div class="iteration-card">
+                    <div class="iteration-number">3</div>
+                    <h3><i class="fas fa-balance-scale"></i>Balanced</h3>
+                    <p>The sweet spot between speed and quality. Recommended for most everyday use cases and general improvements.</p>
+                </div>
+                <div class="iteration-card">
+                    <div class="iteration-number">4-5</div>
+                    <h3><i class="fas fa-bullseye"></i>Maximum Precision</h3>
+                    <p>Highly detailed, sophisticated prompts. Best for complex tasks requiring nuanced, professional-grade instructions.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h2>Why Prompt Engineering Matters</h2>
+            </div>
+            
+            <p><i class="fas fa-chart-line" style="color: #6366f1; margin-right: 0.5rem;"></i>The quality of AI responses is <strong class="highlight">directly proportional</strong> to the quality of your prompts. Poor prompts lead to vague, unhelpful responses, while well-crafted prompts unlock the true intelligence of AI models.</p>
+            
+            <h3 style="margin-top: 2rem;"><i class="fas fa-star"></i>With Promptify, you'll experience:</h3>
+            
+            <ul class="benefits-list">
+                <li>
+                    <div class="benefit-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <span>More accurate and relevant AI responses that directly address your needs</span>
+                </li>
+                <li>
+                    <div class="benefit-icon">
+                        <i class="fas fa-list-alt"></i>
+                    </div>
+                    <span>Detailed, structured outputs that match your specific requirements and context</span>
+                </li>
+                <li>
+                    <div class="benefit-icon">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <span>Consistent, professional-quality results across all your AI interactions</span>
+                </li>
+                <li>
+                    <div class="benefit-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <span>Massive time savings on prompt iteration, refinement, and trial-and-error</span>
+                </li>
+                <li>
+                    <div class="benefit-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <span>Learn better prompting techniques by seeing how your inputs get improved</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h2>Support & Contact</h2>
+            </div>
+            
+            <p><i class="fas fa-question-circle" style="color: #6366f1; margin-right: 0.5rem;"></i>Need help or have questions about Promptify? Our development team is here to assist you with any issues or feedback.</p>
+            
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="contact-name">Krishna Malhotra</div>
+                    <a href="mailto:krishnamalhotra150@gmail.com" class="email-link">
+                        <i class="fas fa-envelope"></i>
+                        krishnamalhotra150@gmail.com
+                    </a>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="contact-name">Tanuj Patel</div>
+                    <a href="mailto:tan9uj@gmail.com" class="email-link">
+                        <i class="fas fa-envelope"></i>
+                        tan9uj@gmail.com
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
