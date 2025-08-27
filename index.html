@@ -37,6 +37,8 @@
             margin-bottom: 4rem;
             padding: 2rem 0;
         }
+
+        
         
         .logo-section {
             margin-bottom: 2rem;
@@ -85,14 +87,40 @@
             font-family: 'Poppins', sans-serif;
             text-shadow: 0 2px 20px rgba(99, 102, 241, 0.3);
         }
-        
-        .highlight {
-            background: linear-gradient(135deg, #6366f1, #a78bfa, #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 700;
-            position: relative;
+
+        .waitlist-section {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .waitlist-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            padding: 0.9rem 1.8rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-decoration: none;
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .waitlist-button:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 12px 30px rgba(99, 102, 241, 0.4);
+            background: linear-gradient(135deg, #8b5cf6, #6366f1);
+            
+            .highlight {
+                background: linear-gradient(135deg, #6366f1, #a78bfa, #8b5cf6);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                font-weight: 700;
+                position: relative;
+            }
         }
         
         .highlight::after {
@@ -574,6 +602,13 @@
                 </svg>
             </div>
             <p class="tagline">Transform your prompts instantly with <span class="highlight">AI-powered refinement</span> - because great prompts unlock smarter responses</p>
+            <div class="waitlist-section">
+                <a href="https://forms.gle/JErNJeM7HyZoKkBz5" target="_blank" class="waitlist-button">
+                    <i class="fas fa-user-plus"></i> Join the Waitlist
+                </a>
+            </div>
+       
+       
         </header>
 
         <div class="card">
