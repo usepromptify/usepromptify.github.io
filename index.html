@@ -37,37 +37,9 @@
             margin-bottom: 4rem;
             padding: 2rem 0;
         }
-
-        
         
         .logo-section {
             margin-bottom: 2rem;
-        }
-        
-        .logo-placeholder {
-            width: 350px;
-            height: 120px;
-            margin: 0 auto 2rem;
-            border: 2px dashed rgba(99, 102, 241, 0.3);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(99, 102, 241, 0.05);
-            color: #6366f1;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 500;
-        }
-        
-        /* Replace this with your logo image */
-        .logo-image {
-            width: 350px;
-            height: 120px;
-            margin: 0 auto 2rem;
-            object-fit: contain;
-            filter: drop-shadow(0 15px 35px rgba(99, 102, 241, 0.4));
-            display: block;
         }
         
         .logo-image {
@@ -112,15 +84,15 @@
             transform: translateY(-3px) scale(1.03);
             box-shadow: 0 12px 30px rgba(99, 102, 241, 0.4);
             background: linear-gradient(135deg, #8b5cf6, #6366f1);
-            
-            .highlight {
-                background: linear-gradient(135deg, #6366f1, #a78bfa, #8b5cf6);
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                background-clip: text;
-                font-weight: 700;
-                position: relative;
-            }
+        }
+        
+        .highlight {
+            background: linear-gradient(135deg, #6366f1, #a78bfa, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            position: relative;
         }
         
         .highlight::after {
@@ -544,6 +516,31 @@
             color: #6366f1;
         }
         
+        .chrome-download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: linear-gradient(135deg, #4285f4, #34a853);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-decoration: none;
+            box-shadow: 0 8px 25px rgba(66, 133, 244, 0.4);
+            transition: all 0.3s ease;
+            margin: 1rem 0;
+        }
+        
+        .chrome-download-btn:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 12px 30px rgba(66, 133, 244, 0.5);
+        }
+        
+        .chrome-download-btn i {
+            font-size: 1.2rem;
+        }
+        
         @media (max-width: 768px) {
             .container {
                 padding: 1rem;
@@ -583,23 +580,7 @@
     <div class="container">
         <header>
             <div class="logo-section">
-                <!-- Replace the placeholder div below with your logo image -->
-                <!-- <img src="your-logo-image.png" alt="Promptify Logo" class="logo-image"> -->
                 <img src="icons/Screenshot 2025-08-25 144843.png" alt="Promptify Logo" class="logo-image">
-                
-                <svg class="logo-image" viewBox="0 0 400 100" xmlns="http://www.w3.org/2000/svg" style="display: none;">
-                    <!-- This SVG is hidden - replace with your actual logo image above -->
-                    <defs>
-                        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#6366f1"/>
-                            <stop offset="100%" style="stop-color:#8b5cf6"/>
-                        </linearGradient>
-                    </defs>
-                    <rect x="10" y="20" width="50" height="35" rx="8" fill="url(#logoGradient)" stroke="url(#logoGradient)" stroke-width="2"/>
-                    <path d="M35 40 L45 50 L35 45 Z" fill="url(#logoGradient)"/>
-                    <path d="M25 30 L40 30 M35 25 L40 30 L35 35" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                    <text x="80" y="45" font-family="Inter, sans-serif" font-size="28" font-weight="600" fill="url(#logoGradient)">promptify</text>
-                </svg>
             </div>
             <p class="tagline">Transform your prompts instantly with <span class="highlight">AI-powered refinement</span> - because great prompts unlock smarter responses</p>
             <div class="waitlist-section">
@@ -607,8 +588,6 @@
                     <i class="fas fa-user-plus"></i> Join the Waitlist
                 </a>
             </div>
-       
-       
         </header>
 
         <div class="card">
@@ -651,129 +630,157 @@
         <div class="card">
             <div class="section-header">
                 <div class="section-icon">
-                    <i class="fas fa-key"></i>
+                    <i class="fas fa-play-circle"></i>
                 </div>
-                <h2>Getting Your Gemini API Key</h2>
+                <h2>Step-by-Step Setup Guide</h2>
             </div>
             
+            <p><i class="fas fa-rocket" style="color: #6366f1; margin-right: 0.5rem;"></i>Follow these steps to get Promptify up and running in just a few minutes. Each step is designed to be simple and straightforward.</p>
+
             <div class="warning">
                 <div class="warning-icon">
                     <i class="fas fa-exclamation-triangle"></i>
                 </div>
                 <div class="warning-content">
-                    <h4>API Key Required</h4>
-                    <p>You'll need a Google Gemini API key to power Promptify's intelligent refinement features.</p>
+                    <h4>Important Note</h4>
+                    <p>Make sure to save your settings immediately after entering your API key. Settings will not function properly if no API key has been entered before pressing Save Settings.</p>
                 </div>
             </div>
             
             <div class="steps">
                 <div class="step">
                     <div class="step-content">
-                        <h3><i class="fab fa-google"></i>Visit Google AI Studio</h3>
-                        <p>Navigate to <strong>aistudio.google.com</strong> and sign in with your Google account to access the API dashboard.</p>
+                        <h3><i class="fab fa-chrome"></i>Download From Chrome Store</h3>
+                        <p>Install Promptify from the Chrome Web Store to get started. The extension is lightweight and installs instantly.</p>
+                        <a href="#" class="chrome-download-btn">
+                            <i class="fab fa-chrome"></i>
+                            Download from Chrome Store
+                        </a>
                     </div>
                 </div>
                 
                 <div class="step">
                     <div class="step-content">
-                        <h3><i class="fas fa-plus-circle"></i>Generate Your Key</h3>
-                        <p>Navigate to the "Get API Key" section and click "Create API Key" to generate your unique authentication key.</p>
+                        <h3><i class="fas fa-globe"></i>Go to ChatGPT.com or Claude.ai</h3>
+                        <p>Navigate to your preferred AI platform. Promptify works seamlessly with ChatGPT, Claude, and other major AI applications.</p>
                     </div>
                 </div>
                 
                 <div class="step">
                     <div class="step-content">
-                        <h3><i class="fas fa-clipboard"></i>Copy & Configure</h3>
-                        <p>Copy the generated API key and paste it into Promptify's settings page for instant activation.</p>
+                        <h3><i class="fas fa-cog"></i>Press Ctrl + B to Access Settings</h3>
+                        <p>Use the default keyboard shortcut <span class="hotkey"><i class="fas fa-keyboard"></i>Ctrl + B</span> to open Promptify settings. <em style="color: #a78bfa;">You can customize this shortcut later!</em></p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-content">
+                        <h3><i class="fas fa-key"></i>Click Google AI Studio Link</h3>
+                        <p>In the settings modal, find the "Gemini API Key" section and click the <strong>Google AI Studio</strong> button to get your API key.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-content">
+                        <h3><i class="fas fa-external-link-alt"></i>Follow API Key Generation Steps</h3>
+                        <p>On Google AI Studio, generate your API key. If you need detailed guidance, visit: <a href="https://www.merge.dev/blog/gemini-api-key#:~:text=Jon%20Gitlin,approve%20the%20terms%20of%20service" class="external-link" target="_blank"><i class="fas fa-external-link-alt"></i>merge.dev API key guide</a></p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-content">
+                        <h3><i class="fas fa-clipboard"></i>Copy & Paste API Key</h3>
+                        <p>Copy your generated API key from Google AI Studio and paste it into the "Gemini API Key" field in Promptify settings.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-content">
+                        <h3><i class="fas fa-save"></i>IMPORTANT: Save Settings Immediately</h3>
+                        <p><strong style="color: #fbbf24;">Critical Step:</strong> Click "Save Settings" right after entering your API key. The extension will not function properly if settings are not saved with a valid API key.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-content">
+                        <h3><i class="fas fa-tools"></i>Customize Promptify</h3>
+                        <p>Reopen settings (<span class="hotkey"><i class="fas fa-keyboard"></i>Ctrl + B</span>) to customize refinement iterations, keyboard shortcuts, and select your preferred enhancement engine.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-content">
+                        <h3><i class="fas fa-power-off"></i>Activate with Ctrl + Y</h3>
+                        <p>Press <span class="hotkey"><i class="fas fa-keyboard"></i>Ctrl + Y</span> to activate Promptify on any AI platform. <em style="color: #a78bfa;">This shortcut can be customized in settings!</em></p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-content">
+                        <h3><i class="fas fa-magic"></i>Highlight & Refine!</h3>
+                        <p>Highlight any text you want to improve, click the popup button, and watch your basic prompt transform into a sophisticated, detailed instruction!</p>
                     </div>
                 </div>
             </div>
-            
-            <p><strong><i class="fas fa-lightbulb" style="color: #6366f1; margin-right: 0.5rem;"></i>Pro Tip:</strong> Keep your API key secure and never share it publicly. For detailed step-by-step instructions, visit: <a href="https://www.merge.dev/blog/gemini-api-key" class="external-link" target="_blank"><i class="fas fa-external-link-alt"></i>merge.dev/blog/gemini-api-key</a></p>
         </div>
 
         <div class="card">
             <div class="section-header">
                 <div class="section-icon">
-                    <i class="fas fa-play-circle"></i>
+                    <i class="fas fa-robot"></i>
                 </div>
-                <h2>How It Works</h2>
+                <h2>Custom Enhancement Engines</h2>
             </div>
             
-            <div class="steps">
-
-                <div class="step">
-                    <div class="step-content">
-                        <h3><i class="fas fa-cog"></i>Access Settings</h3>
-                        <p>While on any AI application, press <span class="hotkey"><i class="fas fa-keyboard"></i>Ctrl + B</span> (default) to open the Promptify settings page and configure your preferences. <em style="color: #a78bfa;">Note: You can customize these keyboard shortcuts in the settings!</em></p>
+            <p><i class="fas fa-paintbrush" style="color: #6366f1; margin-right: 0.5rem;"></i>Make your AI respond exactly how you want it to. Create custom enhancement engines tailored to your specific needs and workflow.</p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-plus-circle"></i>
                     </div>
+                    <h3><i class="fas fa-wrench"></i>Create Your Own Engine</h3>
+                    <p>Design custom engines for specific tasks: essay writing, code optimization, creative storytelling, technical documentation, and more.</p>
                 </div>
-                
-                <div class="step">
-                    <div class="step-content">
-                        <h3><i class="fas fa-key"></i>Configure API & Settings</h3>
-                        <p>Enter your Gemini API key and set your preferred number of refinement iterations (1-5) for optimal results.</p>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
                     </div>
+                    <h3><i class="fas fa-lightbulb"></i>AI-Powered Generation</h3>
+                    <p>Simply describe what you want your engine to do, and AI automatically generates the perfect enhancement prompts for that purpose.</p>
                 </div>
-
-                <div class="step">
-                    <div class="step-content">
-                        <h3><i class="fas fa-cog"></i>Choose an Engine or Create One</h3>
-                        <p>While on any AI application, press <span class="hotkey"><i class="fa fa-gear"></i>Customize Engine</span> and select how you want your AI to respond, or create your own. <em style="color: #a78bfa;">Note: To create your own engine, just add a description and a name!</em></p>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-palette"></i>
                     </div>
+                    <h3><i class="fas fa-star"></i>Personalized Experience</h3>
+                    <p>Name your engines, choose custom icons, and create a personalized AI enhancement toolkit that matches your unique workflow.</p>
                 </div>
-                
-                <div class="step">
-                    <div class="step-content">
-                        <h3><i class="fas fa-power-off"></i>Activate Promptify</h3>
-                        <p>Press <span class="hotkey"><i class="fas fa-keyboard"></i>Ctrl + Y</span> (default) to activate Promptify on the current AI application page. <em style="color: #a78bfa;">Customize this shortcut to your preference in settings!</em></p>
+            </div>
+            
+            <div style="background: rgba(15, 17, 25, 0.6); border-radius: 16px; padding: 2rem; margin: 2rem 0; border: 1px solid rgba(99, 102, 241, 0.2);">
+                <h3 style="margin-bottom: 1.5rem; color: #f1f5f9;"><i class="fas fa-cogs"></i>How to Create Custom Engines:</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">⚙️</div>
+                        <div style="font-weight: 600; margin-bottom: 0.5rem;">Click Customize Engine</div>
+                        <div style="font-size: 0.9rem; opacity: 0.8;">Access the engine selector in settings</div>
                     </div>
-                </div>
-                
-                <div class="step">
-                    <div class="step-content">
-                        <h3><i class="fas fa-magic"></i>Refine & Transform</h3>
-                        <p>Highlight any text you want to improve, click the popup button, and watch as your basic prompt transforms into a refined, detailed instruction.</p>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">✏️</div>
+                        <div style="font-weight: 600; margin-bottom: 0.5rem;">Describe Your Vision</div>
+                        <div style="font-size: 0.9rem; opacity: 0.8;">Tell AI what you want your engine to do</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🚀</div>
+                        <div style="font-weight: 600; margin-bottom: 0.5rem;">AI Creates It</div>
+                        <div style="font-size: 0.9rem; opacity: 0.8;">Get a perfectly tailored enhancement engine</div>
                     </div>
                 </div>
             </div>
+
+            <p><strong><i class="fas fa-lightbulb" style="color: #6366f1; margin-right: 0.5rem;"></i>Example Custom Engines:</strong> "Essay Expert" for academic writing, "Code Optimizer" for programming efficiency, "Creative Storyteller" for narrative enhancement, or "Technical Writer" for documentation clarity.</p>
         </div>
-
-        <!-- <div class="card">
-            <div class="section-header">
-                <div class="section-icon">
-                    <i class="fas fa-exchange-alt"></i>
-                </div>
-                <h2>Using Promptify Across Different LLMs</h2>
-            </div>
-            
-            <p>Promptify makes it easy to transfer your custom settings (refinement iterations, shortcuts, API keys, etc.) between different AI models like ChatGPT, Claude, or others. No need to manually reconfigure each platform – just copy and paste your settings key.</p>
-            
-            <div class="steps">
-                <div class="step">
-                    <div class="step-content">
-                        <h3><i class="fas fa-download"></i>Export from Your Current LLM</h3>
-                        <p>Open Promptify settings on your current LLM (e.g., ChatGPT), scroll to <strong>Export Settings</strong>, and click <span class="hotkey"><i class="fas fa-copy"></i>Copy Key</span> to copy your configuration.</p>
-                    </div>
-                </div>
-                
-                <div class="step">
-                    <div class="step-content">
-                        <h3><i class="fas fa-upload"></i>Import into Another LLM</h3>
-                        <p>Switch to your desired LLM (e.g., Claude), open Promptify settings, and paste the exported key into <strong>Import Settings</strong>. Your preferences will instantly apply.</p>
-                    </div>
-                </div>
-                
-                <div class="step">
-                    <div class="step-content">
-                        <h3><i class="fas fa-sync-alt"></i>Seamless Sync</h3>
-                        <p>All your refinements, shortcuts, and API configurations are now active – no extra setup required.</p>
-                    </div>
-                </div>
-            </div>
-        
-            <p><strong><i class="fas fa-lightbulb" style="color: #6366f1; margin-right: 0.5rem;"></i>Tip:</strong> Use this feature to quickly switch between LLMs without losing your personalized settings.</p>
-        </div> -->
 
         <div class="card">
             <div class="section-header">
@@ -884,3 +891,4 @@
     </div>
 </body>
 </html>
+                
