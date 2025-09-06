@@ -94,6 +94,87 @@
             font-weight: 700;
             position: relative;
         }
+
+        .video-container {
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(99, 102, 241, 0.2);
+            background: rgba(15, 17, 25, 0.8);
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .video-wrapper:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 60px rgba(99, 102, 241, 0.2);
+            border-color: rgba(99, 102, 241, 0.4);
+        }
+
+        .video-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+            border-radius: 20px 20px 0 0;
+            z-index: 1;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 18px;
+        }
+
+        .video-meta {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .video-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+            transition: transform 0.2s ease;
+        }
+
+        .video-badge:hover {
+            transform: translateY(-2px);
+        }
+
+        .video-badge i {
+            font-size: 0.8rem;
+        }
+
+        .video-description {
+            color: #cbd5e1;
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            font-style: italic;
+        }
         
         .highlight::after {
             content: '';
@@ -577,6 +658,7 @@
     </style>
 </head>
 <body>
+    
     <div class="container">
         <header>
             <div class="logo-section">
@@ -589,6 +671,36 @@
                 </a>
             </div>
         </header>
+
+        <div class="card">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fab fa-youtube"></i>
+                </div>
+                <h2>Version Alpha Demonstration</h2>
+            </div>
+            
+            <p><i class="fas fa-play-circle" style="color: #6366f1; margin-right: 0.5rem;"></i>Watch Promptify in action! See how our AI-powered prompt refinement transforms basic text into sophisticated, detailed instructions in real-time.</p>
+            
+            <div class="video-container">
+                <div class="video-wrapper">
+                    <iframe 
+                        src="https://www.youtube.com/embed/5ADNfb5g8lw"
+                        title="Promptify Alpha Demonstration" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="video-meta">
+                    <div class="video-badge">
+                        <i class="fas fa-flask"></i>
+                        Alpha Version
+                    </div>
+                    <p class="video-description">Experience the power of intelligent prompt enhancement with live demonstrations of key features and workflow integration.</p>
+                </div>
+            </div>
+        </div>
 
         <div class="card">
             <div class="section-header">
