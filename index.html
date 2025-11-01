@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Promptify - Documentation</title>
+    <title>Promptify - The Future of Prompt Engineering</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
         
         * {
             margin: 0;
@@ -14,166 +14,372 @@
             box-sizing: border-box;
         }
 
-        .header-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --dark-bg: #0a0e27;
+            --card-bg: rgba(15, 23, 42, 0.8);
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --accent: #667eea;
         }
 
-        .chrome-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: linear-gradient(135deg, #4285f4, #34a853);
-            color: white;
-            padding: 0.9rem 1.8rem;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            text-decoration: none;
-            box-shadow: 0 8px 25px rgba(66, 133, 244, 0.3);
-            transition: all 0.3s ease;
+        html {
+            scroll-behavior: smooth;
         }
 
-        .chrome-button:hover {
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 12px 30px rgba(66, 133, 244, 0.4);
-            background: linear-gradient(135deg, #34a853, #4285f4);
-        }
-
-        /* Mobile responsiveness */
-        @media (max-width: 768px) {
-            .header-buttons {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .waitlist-button,
-            .chrome-button {
-                width: 100%;
-                max-width: 300px;
-                justify-content: center;
-            }
-        }
-
-        
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #1a1b23;
-            background-image: 
-                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(167, 139, 250, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(99, 102, 241, 0.2) 0%, transparent 50%);
-            min-height: 100vh;
-            color: #e2e8f0;
+            font-family: 'Inter', sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
             line-height: 1.6;
+            overflow-x: hidden;
         }
-        
-        .container {
-            max-width: 1200px;
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        
-        header {
-            text-align: center;
-            margin-bottom: 4rem;
-            padding: 2rem 0;
-        }
-        
-        .logo-section {
-            margin-bottom: 2rem;
-        }
-        
-        .logo-image {
-            width: 300px;
-            height: auto;
-            margin-bottom: 1.5rem;
-            filter: drop-shadow(0 10px 30px rgba(99, 102, 241, 0.4));
-        }
-        
-        .tagline {
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: 'Space Grotesk', sans-serif;
             font-size: 1.5rem;
-            color: #f1f5f9;
+            font-weight: 700;
+        }
+
+        .logo img {
+            height: 170px;
+            width: auto;
+            filter: drop-shadow(0 2px 8px rgba(102, 126, 234, 0.3));
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
             font-weight: 500;
-            max-width: 700px;
-            margin: 0 auto;
-            line-height: 1.6;
-            font-family: 'Poppins', sans-serif;
-            text-shadow: 0 2px 20px rgba(99, 102, 241, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
         }
 
-        .waitlist-section {
-            margin-top: 2rem;
-            text-align: center;
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-gradient);
+            transition: width 0.3s ease;
         }
 
-        .waitlist-button {
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cta-button {
+            padding: 0.75rem 1.5rem;
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            color: white;
-            padding: 0.9rem 1.8rem;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            text-decoration: none;
-            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-primary);
+            border-radius: 2px;
             transition: all 0.3s ease;
         }
 
-        .waitlist-button:hover {
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 12px 30px rgba(99, 102, 241, 0.4);
-            background: linear-gradient(135deg, #8b5cf6, #6366f1);
-        }
-        
-        .highlight {
-            background: linear-gradient(135deg, #6366f1, #a78bfa, #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 700;
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             position: relative;
-        }
-
-        .video-container {
-            margin: 2rem 0;
-            text-align: center;
-        }
-
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 aspect ratio */
-            height: 0;
             overflow: hidden;
-            border-radius: 20px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-            border: 2px solid rgba(99, 102, 241, 0.2);
-            background: rgba(15, 17, 25, 0.8);
-            margin-bottom: 1.5rem;
-            transition: all 0.3s ease;
+            padding: 6rem 2rem 4rem;
         }
 
-        .video-wrapper:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 30px 60px rgba(99, 102, 241, 0.2);
-            border-color: rgba(99, 102, 241, 0.4);
-        }
-
-        .video-wrapper::before {
-            content: '';
+        .hero-background {
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #6366f1, #8b5cf6);
-            border-radius: 20px 20px 0 0;
+            bottom: 0;
+            z-index: 0;
+        }
+
+        .gradient-circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.3;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .circle-1 {
+            width: 500px;
+            height: 500px;
+            background: #667eea;
+            top: -200px;
+            right: -200px;
+            animation-delay: 0s;
+        }
+
+        .circle-2 {
+            width: 400px;
+            height: 400px;
+            background: #764ba2;
+            bottom: -150px;
+            left: -150px;
+            animation-delay: 5s;
+        }
+
+        .circle-3 {
+            width: 300px;
+            height: 300px;
+            background: #4facfe;
+            top: 50%;
+            left: 50%;
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            33% { transform: translate(50px, -50px); }
+            66% { transform: translate(-50px, 50px); }
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            width: 100%;
+            position: relative;
             z-index: 1;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            padding: 0.5rem 1.25rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            animation: slideDown 0.8s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .gradient-text {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .primary-button {
+            padding: 1rem 2.5rem;
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .primary-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
+        }
+
+        .secondary-button {
+            padding: 1rem 2.5rem;
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid rgba(102, 126, 234, 0.5);
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .secondary-button:hover {
+            background: rgba(102, 126, 234, 0.1);
+            border-color: rgba(102, 126, 234, 0.8);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 6rem 2rem;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-badge {
+            display: inline-block;
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            padding: 0.5rem 1.25rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .section-header h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Video Section */
+        .video-section {
+            background: rgba(15, 23, 42, 0.5);
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(102, 126, 234, 0.2);
         }
 
         .video-wrapper iframe {
@@ -182,1018 +388,599 @@
             left: 0;
             width: 100%;
             height: 100%;
-            border-radius: 18px;
+            border: 0;
         }
 
-        .video-meta {
-            text-align: center;
-            margin-top: 1rem;
-        }
-
-        .video-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            color: white;
-            padding: 0.6rem 1.2rem;
-            border-radius: 25px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
-            transition: transform 0.2s ease;
-        }
-
-        .video-badge:hover {
-            transform: translateY(-2px);
-        }
-
-        .video-badge i {
-            font-size: 0.8rem;
-        }
-
-        .video-description {
-            color: #cbd5e1;
-            font-size: 1rem;
-            max-width: 600px;
-            margin: 0 auto;
-            font-style: italic;
-        }
-        
-        .highlight::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            opacity: 0.3;
-            border-radius: 1px;
-        }
-        
-        .card {
-            background: rgba(30, 32, 42, 0.9);
-            backdrop-filter: blur(20px);
-            border-radius: 24px;
-            padding: 3rem;
-            margin-bottom: 2.5rem;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.5), transparent);
-        }
-        
-        .section-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-        
-        .section-icon {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
-        }
-        
-        .section-icon i {
-            color: white;
-            font-size: 20px;
-        }
-        
-        h2 {
-            font-size: 2.3rem;
-            color: #f8fafc;
-            font-weight: 800;
-            margin: 0;
-            font-family: 'Space Grotesk', sans-serif;
-            text-shadow: 0 2px 15px rgba(99, 102, 241, 0.2);
-        }
-        
-        h3 {
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
-            color: #e2e8f0;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-family: 'Poppins', sans-serif;
-        }
-        
-        h3 i {
-            color: #6366f1;
-            font-size: 1.2rem;
-        }
-        
-        p {
-            margin-bottom: 1.5rem;
-            color: #cbd5e1;
-            font-size: 1.1rem;
-            line-height: 1.7;
-            font-family: 'Inter', sans-serif;
-        }
-        
-        .feature-grid {
+        /* Features Grid */
+        .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2rem;
-            margin: 2.5rem 0;
+            margin-top: 4rem;
         }
-        
+
         .feature-card {
-            background: rgba(15, 17, 25, 0.8);
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(102, 126, 234, 0.1);
             border-radius: 20px;
             padding: 2.5rem;
-            border: 1px solid rgba(99, 102, 241, 0.15);
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
         }
-        
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #6366f1, #8b5cf6);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
+
         .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
-            border-color: rgba(99, 102, 241, 0.3);
+            transform: translateY(-10px);
+            border-color: rgba(102, 126, 234, 0.3);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
         }
-        
-        .feature-card:hover::before {
-            opacity: 1;
-        }
-        
+
         .feature-icon {
-            width: 56px;
-            height: 56px;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            width: 60px;
+            height: 60px;
+            background: var(--primary-gradient);
             border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 1.5rem;
-            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
         }
-        
+
         .feature-icon i {
+            font-size: 1.8rem;
             color: white;
-            font-size: 24px;
         }
-        
-        .hotkey {
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            color: white;
-            padding: 0.75rem 1.25rem;
-            border-radius: 12px;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin: 0.5rem;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 0.95rem;
-            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
-            transition: transform 0.2s ease;
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-family: 'Space Grotesk', sans-serif;
         }
-        
-        .hotkey:hover {
-            transform: translateY(-2px);
+
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.8;
         }
-        
-        .hotkey i {
-            font-size: 0.9rem;
+
+        /* Setup Steps */
+        .setup-steps {
+            max-width: 900px;
+            margin: 0 auto;
         }
-        
-        .steps {
-            counter-reset: step-counter;
-            margin-top: 2rem;
-        }
-        
+
         .step {
-            counter-increment: step-counter;
-            margin-bottom: 2rem;
-            padding: 2.5rem;
-            background: rgba(15, 17, 25, 0.6);
-            border-radius: 20px;
-            border: 1px solid rgba(99, 102, 241, 0.1);
-            position: relative;
-            transition: all 0.3s ease;
-        }
-        
-        .step:hover {
-            border-color: rgba(99, 102, 241, 0.3);
-            transform: translateX(10px);
-        }
-        
-        .step::before {
-            content: counter(step-counter);
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            color: white;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 1.1rem;
-            position: absolute;
-            left: -22px;
-            top: 50%;
-            transform: translateY(-50%);
-            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
-        }
-        
-        .step-content {
-            margin-left: 1.5rem;
-        }
-        
-        .step h3 {
-            margin-bottom: 1rem;
-            color: #f1f5f9;
-            font-family: 'Poppins', sans-serif;
-        }
-        
-        .step p {
-            color: #cbd5e1;
-            margin-bottom: 0;
-            font-family: 'Inter', sans-serif;
-        }
-        
-        .warning {
-            background: rgba(245, 158, 11, 0.1);
-            border: 2px solid rgba(245, 158, 11, 0.3);
-            border-radius: 16px;
-            padding: 2rem;
-            margin: 2rem 0;
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-        }
-        
-        .warning-icon {
-            width: 40px;
-            height: 40px;
-            background: #f59e0b;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            margin-top: 0.2rem;
-        }
-        
-        .warning-icon i {
-            color: white;
-            font-size: 18px;
-        }
-        
-        .warning-content h4 {
-            color: #fbbf24;
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-        
-        .warning-content p {
-            color: #d1d5db;
-            margin: 0;
-        }
-        
-        .iterations-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-        
-        .iteration-card {
-            background: rgba(15, 17, 25, 0.8);
-            border-radius: 16px;
-            padding: 2rem;
-            border: 1px solid rgba(99, 102, 241, 0.15);
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        
-        .iteration-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(99, 102, 241, 0.3);
-        }
-        
-        .iteration-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 1rem;
-        }
-        
-        .benefits-list {
-            list-style: none;
-            padding: 0;
-            margin: 2rem 0;
-        }
-        
-        .benefits-list li {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            padding: 1.5rem;
-            background: rgba(15, 17, 25, 0.6);
-            border-radius: 12px;
-            border: 1px solid rgba(99, 102, 241, 0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .benefits-list li:hover {
-            border-color: rgba(99, 102, 241, 0.3);
-            transform: translateX(10px);
-        }
-        
-        .benefit-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-        
-        .benefit-icon i {
-            color: white;
-            font-size: 16px;
-        }
-
-        .navbar {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-
-        .menu-toggle {
-            background: rgba(30, 32, 42, 0.9);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            border-radius: 16px;
-            padding: 16px; /* Changed from 12px to 16px */
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Make the hamburger lines bigger and more visible */
-        .hamburger {
-            display: flex;
-            flex-direction: column;
-            width: 30px; /* Changed from 24px to 30px */
-            height: 22px; /* Changed from 18px to 22px */
-            justify-content: space-between;
-        }
-
-        .hamburger span {
-            display: block;
-            height: 3px; /* Changed from 2px to 3px */
-            width: 100%;
-            background: linear-gradient(90deg, #6366f1, #8b5cf6);
-            border-radius: 2px; /* Changed from 1px to 2px */
-            transition: all 0.3s ease;
-            box-shadow: 0 1px 3px rgba(99, 102, 241, 0.3); /* Added shadow for more visibility */
-}
-
-        .menu-toggle.active .hamburger span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-
-        .menu-toggle.active .hamburger span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .menu-toggle.active .hamburger span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -6px);
-        }
-
-        .nav-menu {
-            position: absolute;
-            top: 60px;
-            right: 0;
-            background: rgba(30, 32, 42, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            border-radius: 20px;
-            padding: 1.5rem;
-            min-width: 280px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px) scale(0.95);
-            transition: all 0.3s ease;
-        }
-
-        .nav-menu.active {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0) scale(1);
-        }
-
-        .nav-menu::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #6366f1, #8b5cf6);
-            border-radius: 20px 20px 0 0;
-        }
-
-        .nav-links {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .nav-links li {
-            margin-bottom: 0.5rem;
-        }
-
-        .nav-links li:last-child {
-            margin-bottom: 0;
-        }
-
-        .nav-links a {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            color: #cbd5e1;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 1rem 1.25rem;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-            font-size: 0.95rem;
-        }
-
-        .nav-links a:hover {
-            color: #f8fafc;
-            background: rgba(99, 102, 241, 0.15);
-            transform: translateX(5px);
-        }
-
-        .nav-links a i {
-            color: #6366f1;
-            font-size: 0.9rem;
-            width: 16px;
-            text-align: center;
-        }
-
-        /* Remove body padding since we're not using full-width navbar */
-        body {
-            padding-top: 0;
-        }
-
-        @media (max-width: 768px) {
-            .navbar {
-                top: 15px;
-                right: 15px;
-            }
-            
-            .nav-menu {
-                min-width: 260px;
-                right: -10px;
-            }
-        }
-        
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
-            margin-top: 2rem;
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateX(-30px);
+            animation: slideInLeft 0.6s ease-out forwards;
         }
-        
-        .contact-card {
-            background: rgba(15, 17, 25, 0.8);
-            padding: 2.5rem;
-            border-radius: 20px;
-            text-align: center;
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+
+        .step:nth-child(1) { animation-delay: 0.1s; }
+        .step:nth-child(2) { animation-delay: 0.2s; }
+        .step:nth-child(3) { animation-delay: 0.3s; }
+        .step:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes slideInLeft {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
-        
-        .contact-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #6366f1, #8b5cf6);
-        }
-        
-        .contact-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
-        }
-        
-        .contact-avatar {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+
+        .step-number {
+            flex-shrink: 0;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-gradient);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 1.5rem;
-            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+            font-size: 1.5rem;
+            font-weight: 700;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
         }
-        
-        .contact-avatar i {
-            color: white;
-            font-size: 32px;
-        }
-        
-        .contact-name {
+
+        .step-content h3 {
             font-size: 1.3rem;
-            font-weight: 600;
-            color: #f1f5f9;
-            margin-bottom: 0.5rem;
-            font-family: 'Poppins', sans-serif;
+            margin-bottom: 0.75rem;
+            font-family: 'Space Grotesk', sans-serif;
         }
-        
-        .email-link {
-            color: #8b5cf6;
+
+        .step-content p {
+            color: var(--text-secondary);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--primary-gradient);
+            text-align: center;
+            border-radius: 30px;
+            padding: 5rem 2rem;
+            margin: 4rem 0;
+        }
+
+        .cta-section h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+        }
+
+        .cta-section .primary-button {
+            background: white;
+            color: #667eea;
+        }
+
+        .cta-section .primary-button:hover {
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(15, 23, 42, 0.8);
+            padding: 3rem 2rem;
+            border-top: 1px solid rgba(102, 126, 234, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-section h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: var(--text-secondary);
             text-decoration: none;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
+            display: block;
+            margin-bottom: 0.75rem;
             transition: color 0.3s ease;
         }
-        
-        .email-link:hover {
-            color: #6366f1;
+
+        .footer-section a:hover {
+            color: var(--text-primary);
         }
-        
-        .external-link {
-            color: #8b5cf6;
-            text-decoration: none;
-            font-weight: 500;
-            display: inline-flex;
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 10px;
+            display: flex;
             align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .external-link:hover {
-            color: #6366f1;
-        }
-        
-        .chrome-download-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            background: linear-gradient(135deg, #4285f4, #34a853);
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            text-decoration: none;
-            box-shadow: 0 8px 25px rgba(66, 133, 244, 0.4);
+            justify-content: center;
             transition: all 0.3s ease;
-            margin: 1rem 0;
         }
-        
-        .chrome-download-btn:hover {
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 12px 30px rgba(66, 133, 244, 0.5);
+
+        .social-links a:hover {
+            background: var(--primary-gradient);
+            border-color: transparent;
         }
-        
-        .chrome-download-btn i {
-            font-size: 1.2rem;
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(102, 126, 234, 0.1);
+            color: var(--text-secondary);
         }
-        
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
-            }
-            
-            .logo-image {
-                width: 250px;
-            }
-            
-            .card {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(10, 14, 39, 0.98);
+                flex-direction: column;
                 padding: 2rem;
+                gap: 1.5rem;
+                border-top: 1px solid rgba(102, 126, 234, 0.1);
             }
-            
-            .feature-grid {
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .primary-button,
+            .secondary-button {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+
+            .features-grid {
                 grid-template-columns: 1fr;
             }
-            
-            .iterations-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-            
+
             .step {
-                margin-left: 1rem;
+                flex-direction: column;
             }
-            
-            .step-content {
-                margin-left: 1rem;
-            }
+        }
+
+        /* Scroll Animation */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .scroll-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
-
-    <nav class="navbar">
-        <div class="menu-toggle" onclick="toggleMenu()">
-            <div class="hamburger">
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="icons/promptify.png" alt="Promptify Logo">
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#demo">Demo</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#setup">Setup</a></li>
+                <li><a href="#why">Why Promptify</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="https://chromewebstore.google.com/detail/gbdneaodlcoplkbpiemljcafpghcelld" class="cta-button">
+                    <i class="fab fa-chrome"></i> Download
+                </a></li>
+            </ul>
+            <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-        </div>
-        <div class="nav-menu" id="navMenu">
-            <ul class="nav-links">
-                <li><a href="#demo" onclick="closeMenu()"><i class="fas fa-play-circle"></i>Demo</a></li>
-                <li><a href="#what-is" onclick="closeMenu()"><i class="fas fa-question-circle"></i>What is Promptify?</a></li>
-                <li><a href="#setup" onclick="closeMenu()"><i class="fas fa-cog"></i>Setup Guide</a></li>
-                <li><a href="#why-matters" onclick="closeMenu()"><i class="fas fa-brain"></i>Why It Matters</a></li>
-                <li><a href="#troubleshooting" onclick="closeMenu()"><i class="fas fa-exclamation-triangle"></i>Troubleshooting</a></li>
-
-                <li><a href="#support" onclick="closeMenu()"><i class="fas fa-headset"></i>Support</a></li>
-            </ul>
         </div>
     </nav>
-    
-    <div class="container">
-        <header>
-            <div class="logo-section">
-                <img src="icons/Screenshot 2025-08-25 144843.png" alt="Promptify Logo" class="logo-image">
-            </div>
-            <p class="tagline">Transform your prompts instantly with <span class="highlight">AI-powered refinement</span> - because great prompts unlock smarter responses</p>
-            <div class="waitlist-section">
-                <div class="header-buttons">
-                    <a href="https://forms.gle/JErNJeM7HyZoKkBz5" target="_blank" class="waitlist-button">
-                        <i class="fas fa-user-plus"></i> Join the Waitlist
-                    </a>
-                    <a href="https://chromewebstore.google.com/detail/gbdneaodlcoplkbpiemljcafpghcelld?utm_source=item-share-cb" target="_blank" class="chrome-button">
-                        <i class="fab fa-chrome"></i> Get Chrome Extension
-                    </a>
-                </div>
-            </div>
-        </header>
 
-        <div class="card" id="demo">
-
-            <div class="section-header">
-                <div class="section-icon">
-                    <i class="fab fa-youtube"></i>
-                </div>
-                <h2>Version Alpha Demonstration</h2>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-background">
+            <div class="gradient-circle circle-1"></div>
+            <div class="gradient-circle circle-2"></div>
+            <div class="gradient-circle circle-3"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-sparkles"></i>
+                The Future of Prompt Engineering is Here
             </div>
-            
-            <p><i class="fas fa-play-circle" style="color: #6366f1; margin-right: 0.5rem;"></i>Watch Promptify in action! See how our AI-powered prompt refinement transforms basic text into sophisticated, detailed instructions in real-time.</p>
-            
-            <div class="video-container">
-                <div class="video-wrapper">
-                    <iframe 
-                        src="https://www.youtube.com/embed/dyy5Si0rzXo"
-                        title="Promptify Alpha Demonstration" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                        allowfullscreen>
-                    </iframe>
-                </div>
-                <div class="video-meta">
-                    <div class="video-badge">
-                        <i class="fas fa-flask"></i>
-                        Beta Version
-                    </div>
-                    <p class="video-description">Experience the power of intelligent prompt enhancement with live demonstrations of key features and workflow integration.</p>
-                </div>
+            <h1>
+                Transform Your Prompts<br>
+                Into <span class="gradient-text">Intelligent Instructions</span>
+            </h1>
+            <p>
+                Elevate your AI interactions with instant, AI-powered prompt refinement. 
+                Get smarter responses by crafting better prompts in seconds.
+            </p>
+            <div class="hero-buttons">
+                <a href="https://chromewebstore.google.com/detail/gbdneaodlcoplkbpiemljcafpghcelld" class="primary-button">
+                    <i class="fab fa-chrome"></i>
+                    Get Chrome Extension
+                </a>
+                <a href="#demo" class="secondary-button">
+                    <i class="fas fa-play-circle"></i>
+                    Watch Demo
+                </a>
             </div>
         </div>
+    </section>
 
-        <div class="card" id="what-is">
-            <div class="section-header">
-                <div class="section-icon">
-                    <i class="fas fa-magic"></i>
-                </div>
-                <h2>What is Promptify?</h2>
+    <!-- Video Demo Section -->
+    <section id="demo" class="video-section">
+        <div class="container">
+            <div class="section-header scroll-reveal">
+                <span class="section-badge">SEE IT IN ACTION</span>
+                <h2>Experience Promptify</h2>
+                <p>Watch how Promptify transforms basic prompts into sophisticated, detailed instructions in real-time</p>
             </div>
-            
-            <p><i class="fas fa-quote-left" style="color: #6366f1; margin-right: 0.5rem;"></i>In the world of AI, <strong class="highlight">"garbage in equals garbage out"</strong> - which is why refined, well-crafted prompts are essential for getting intelligent, accurate responses.</p>
-            
-            <p>Promptify is a lightning-fast Chrome extension that revolutionizes how you interact with AI applications. Transform basic prompts into sophisticated, detailed instructions that unlock the full potential of AI models.</p>
+            <div class="scroll-reveal" style="text-align: center;">
+                <a href="https://www.youtube.com/watch?v=dyy5Si0rzXo" target="_blank" class="primary-button" style="display: inline-flex;">
+                    <i class="fab fa-youtube"></i>
+                    Watch Demo on YouTube
+                </a>
+            </div>
+        </div>
+    </section>
 
-            <div class="feature-grid">
-                <div class="feature-card">
+    <!-- Features Section -->
+    <section id="features">
+        <div class="container">
+            <div class="section-header scroll-reveal">
+                <span class="section-badge">FEATURES</span>
+                <h2>Built for Speed and Precision</h2>
+                <p>Everything you need to unlock the full potential of AI conversations</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card scroll-reveal">
                     <div class="feature-icon">
                         <i class="fas fa-bolt"></i>
                     </div>
-                    <h3><i class="fas fa-zap"></i>Instant Activation</h3>
-                    <p>Simply highlight any text and click the popup button to refine your prompt instantly - no waiting, no complexity.</p>
+                    <h3>Instant Refinement</h3>
+                    <p>Highlight any text and transform it into a sophisticated prompt with a single click. No waiting, no complexity.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card scroll-reveal">
                     <div class="feature-icon">
                         <i class="fas fa-sliders-h"></i>
                     </div>
-                    <h3><i class="fas fa-cogs"></i>Smart Refinement</h3>
-                    <p>Control the level of detail with 1-5 refinement iterations - choose between lightning speed or maximum precision.</p>
+                    <h3>Adjustable Complexity</h3>
+                    <p>Control refinement depth with 1-5 iteration levels. Balance speed with precision based on your needs.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card scroll-reveal">
                     <div class="feature-icon">
-                        <i class="fas fa-user-slash"></i>
+                        <i class="fas fa-plug"></i>
                     </div>
-                    <h3><i class="fas fa-rocket"></i>Zero Hassle</h3>
-                    <p>No sign-ups, no subscriptions, no accounts. Just pure speed and efficiency with your own API key.</p>
+                    <h3>Universal Integration</h3>
+                    <p>Works seamlessly with ChatGPT, Claude, and any AI platform. One extension, unlimited possibilities.</p>
+                </div>
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Privacy First</h3>
+                    <p>Your prompts stay private. No accounts, no data collection, just pure functionality with your API key.</p>
+                </div>
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon">
+                        <i class="fas fa-keyboard"></i>
+                    </div>
+                    <h3>Keyboard Shortcuts</h3>
+                    <p>Customize hotkeys for lightning-fast access. Streamline your workflow with intuitive controls.</p>
+                </div>
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <h3>Smart Context</h3>
+                    <p>Add custom instructions to tailor AI behavior. Your preferences, automatically applied to every prompt.</p>
                 </div>
             </div>
         </div>
+    </section>
 
-        <div class="card" id="setup">
-            <div class="section-header">
-                <div class="section-icon">
-                    <i class="fas fa-play-circle"></i>
-                </div>
-                <h2>Step-by-Step Setup Guide</h2>
+    <!-- Setup Section -->
+    <section id="setup">
+        <div class="container">
+            <div class="section-header scroll-reveal">
+                <span class="section-badge">GET STARTED</span>
+                <h2>Setup in Minutes</h2>
+                <p>Four simple steps to unlock better AI conversations</p>
             </div>
-            
-            <p><i class="fas fa-rocket" style="color: #6366f1; margin-right: 0.5rem;"></i>Follow these steps to get Promptify up and running in just a few minutes. Each step is designed to be simple and straightforward.</p>
-
-            <div class="warning">
-                <div class="warning-icon">
-                    <i class="fas fa-exclamation-triangle"></i>
-                </div>
-                <div class="warning-content">
-                    <h4>Important Note</h4>
-                    <p>Make sure to save your settings immediately after entering your API key. Settings will not function properly if no API key has been entered before pressing Save Settings.</p>
-                </div>
-            </div>
-            
-            <div class="steps">
-                <div class="step">
+            <div class="setup-steps">
+                <div class="step scroll-reveal">
+                    <div class="step-number">1</div>
                     <div class="step-content">
-                        <h3><i class="fab fa-chrome"></i>Download From Chrome Store</h3>
-                        <p>Install Promptify from the Chrome Web Store to get started. The extension is lightweight and installs instantly.</p>
-                        <a href="https://chromewebstore.google.com/detail/gbdneaodlcoplkbpiemljcafpghcelld?utm_source=item-share-cb" class="chrome-download-btn">
-                            <i class="fab fa-chrome"></i>
-                            Download from Chrome Store
-                        </a>
+                        <h3>Install Extension</h3>
+                        <p>Download Promptify from the Chrome Web Store. The extension is lightweight and installs instantly.</p>
                     </div>
                 </div>
-                
-                <div class="step">
+                <div class="step scroll-reveal">
+                    <div class="step-number">2</div>
                     <div class="step-content">
-                        <h3><i class="fas fa-globe"></i>Go to ChatGPT.com or Claude.ai</h3>
-                        <p>Navigate to your preferred AI platform. Promptify works seamlessly with ChatGPT, Claude, and other major AI applications.</p>
+                        <h3>Get Your API Key</h3>
+                        <p>Obtain your free Groq API key. Press Ctrl+B on any AI platform and click "Get Your API Key" to navigate to Groq.</p>
                     </div>
                 </div>
-
-                
-                <div class="step">
+                <div class="step scroll-reveal">
+                    <div class="step-number">3</div>
                     <div class="step-content">
-                        <h3><i class="fas fa-cog"></i>Press Ctrl + B to Access Settings</h3>
-                        <p>Use the default keyboard shortcut <span class="hotkey"><i class="fas fa-keyboard"></i>Ctrl + B</span> to open Promptify settings. <em style="color: #a78bfa;">You can customize this shortcut later!</em></p>
+                        <h3>Configure Settings</h3>
+                        <p>Enter your API key, adjust complexity levels, and add any custom instructions to personalize your experience.</p>
                     </div>
                 </div>
-
-                <div class="step">
+                <div class="step scroll-reveal">
+                    <div class="step-number">4</div>
                     <div class="step-content">
-                        <h3><i class="fas fa-globe"></i>Navigate to API </h3>
-                        <p>Click the Engine Key Button and <span class="hotkey"><i class="fa-solid fa-key"></i>Get Your API Key</span></p>
-                    </div>
-                </div>
-
-                <div class="step">
-                    <div class="step-content">
-                        <h3><i class="fas fa-globe"></i>Obtain Groq API Key </h3>
-                        <p>Get your API key from Groq and copy and paste it into the Promptify Settings</p>
-                    </div>
-                </div>
-                
-                
-                <div class="step">
-                    <div class="step-content">
-                        <h3><i class="fas fa-tools"></i>Customize Promptify</h3>
-                        <p> Customize complexity and add a short memo of what you want your AI to be like.</p>
-                    </div>
-                </div>
-                
-
-                
-                <div class="step">
-                    <div class="step-content">
-                        <h3><i class="fas fa-magic"></i>Highlight & Refine!</h3>
-                        <p>Highlight any text you want to improve, click the popup button, and watch your basic prompt transform into a sophisticated, detailed instruction!</p>
+                        <h3>Start Refining</h3>
+                        <p>Highlight any text in your AI chat and click the popup button. Watch your prompts transform instantly!</p>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
 
-
-        <div class="card" id="why-matters">
-            <div class="section-header">
-                <div class="section-icon">
-                    <i class="fas fa-brain"></i>
-                </div>
-                <h2>Why Prompt Engineering Matters</h2>
+    <!-- Why Section -->
+    <section id="why">
+        <div class="container">
+            <div class="section-header scroll-reveal">
+                <span class="section-badge">THE IMPACT</span>
+                <h2>Why Prompt Quality Matters</h2>
+                <p>The difference between mediocre and exceptional AI responses</p>
             </div>
-            
-            <p><i class="fas fa-chart-line" style="color: #6366f1; margin-right: 0.5rem;"></i>The quality of AI responses is <strong class="highlight">directly proportional</strong> to the quality of your prompts. Poor prompts lead to vague, unhelpful responses, while well-crafted prompts unlock the true intelligence of AI models.</p>
-            
-            <h3 style="margin-top: 2rem;"><i class="fas fa-star"></i>With Promptify, you'll experience:</h3>
-            
-            <ul class="benefits-list">
-                <li>
-                    <div class="benefit-icon">
+            <div class="features-grid">
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon">
                         <i class="fas fa-bullseye"></i>
                     </div>
-                    <span>More accurate and relevant AI responses that directly address your needs</span>
-                </li>
-                <li>
-                    <div class="benefit-icon">
-                        <i class="fas fa-list-alt"></i>
-                    </div>
-                    <span>Detailed, structured outputs that match your specific requirements and context</span>
-                </li>
-                <li>
-                    <div class="benefit-icon">
-                        <i class="fas fa-medal"></i>
-                    </div>
-                    <span>Consistent, professional-quality results across all your AI interactions</span>
-                </li>
-                <li>
-                    <div class="benefit-icon">
+                    <h3>More Accurate Responses</h3>
+                    <p>Well-crafted prompts lead to precise, relevant answers that directly address your needs without ambiguity.</p>
+                </div>
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon">
                         <i class="fas fa-clock"></i>
                     </div>
-                    <span>Massive time savings on prompt iteration, refinement, and trial-and-error</span>
-                </li>
-                <li>
-                    <div class="benefit-icon">
+                    <h3>Save Hours of Iteration</h3>
+                    <p>Stop wasting time refining prompts manually. Get it right the first time and move faster.</p>
+                </div>
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Consistent Quality</h3>
+                    <p>Maintain professional-grade outputs across all your AI interactions with standardized prompt engineering.</p>
+                </div>
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon">
                         <i class="fas fa-graduation-cap"></i>
                     </div>
-                    <span>Learn better prompting techniques by seeing how your inputs get improved</span>
-                </li>
-            </ul>
-        </div>
-
-        <div class="card" id="troubleshooting">
-            <div class="section-header">
-                <div class="section-icon">
-                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>Learn Best Practices</h3>
+                    <p>Discover effective prompting techniques by seeing how your inputs get enhanced and improved.</p>
                 </div>
-                <h2>Common Errors & Troubleshooting</h2>
-            </div>
-            
-            <p><i class="fas fa-tools" style="color: #6366f1; margin-right: 0.5rem;"></i>Experiencing issues with Promptify? Check these common solutions to get back up and running quickly.</p>
-            
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-bug"></i>
-                    </div>
-                    <h3><i class="fas fa-times-circle"></i>Enhancement Failed Error</h3>
-                    <p>If you receive an "enhancement failed" error, go to your Chrome extensions page (<code>chrome://extensions/</code>) and click on "Errors" under the Promptify extension to see detailed error information.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-server"></i>
-                    </div>
-                    <h3><i class="fas fa-clock"></i>Model Overloaded Error</h3>
-                    <p>If you see <strong>"The model is overloaded. Please try again later"</strong>, your current API key has reached its limit. Generate a new API key from Google AI Studio and replace it in your settings.</p>
-                </div>
-                <div class="feature-card">
+                <div class="feature-card scroll-reveal">
                     <div class="feature-icon">
                         <i class="fas fa-rocket"></i>
                     </div>
-                    <h3><i class="fas fa-gift"></i>Future Updates</h3>
-                    <p><strong>Good news!</strong> API key limitations will be completely eliminated in the main launch. The current alpha version requires personal API keys for testing purposes only.</p>
+                    <h3>Unlock AI Potential</h3>
+                    <p>Access advanced capabilities of AI models by providing them with detailed, well-structured instructions.</p>
+                </div>
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3>Professional Results</h3>
+                    <p>Elevate your work quality with outputs that meet professional standards every single time.</p>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div style="background: rgba(15, 17, 25, 0.6); border-radius: 16px; padding: 2rem; margin: 2rem 0; border: 1px solid rgba(245, 158, 11, 0.2);">
-                <h3 style="margin-bottom: 1.5rem; color: #fbbf24;"><i class="fas fa-lightbulb"></i>Quick Troubleshooting Steps:</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
-                    <div style="text-align: center;">
-                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🔧</div>
-                        <div style="font-weight: 600; margin-bottom: 0.5rem;">Check Extension Errors</div>
-                        <div style="font-size: 0.9rem; opacity: 0.8;">Navigate to chrome://extensions/ and look for error details</div>
+    <!-- CTA Section -->
+    <section>
+        <div class="container">
+            <div class="cta-section scroll-reveal">
+                <h2>Ready to Transform Your AI Experience?</h2>
+                <p>Join thousands of users who are already crafting better prompts and getting smarter responses</p>
+                <a href="https://chromewebstore.google.com/detail/gbdneaodlcoplkbpiemljcafpghcelld" class="primary-button">
+                    <i class="fab fa-chrome"></i>
+                    Download Promptify Now
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-header scroll-reveal">
+                <span class="section-badge">GET IN TOUCH</span>
+                <h2>Need Support?</h2>
+                <p>Our team is here to help with any questions or feedback</p>
+            </div>
+            <div class="features-grid" style="max-width: 800px; margin: 0 auto;">
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon">
+                        <i class="fas fa-user"></i>
                     </div>
-                    <div style="text-align: center;">
-                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🔄</div>
-                        <div style="font-weight: 600; margin-bottom: 0.5rem;">Refresh API Key</div>
-                        <div style="font-size: 0.9rem; opacity: 0.8;">Generate new key if you encounter overload errors</div>
+                    <h3>Krishna Malhotra</h3>
+                    <p><a href="mailto:krishnamalhotra150@gmail.com" style="color: #667eea;">krishnamalhotra150@gmail.com</a></p>
+                </div>
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon">
+                        <i class="fas fa-user"></i>
                     </div>
-                    <div style="text-align: center;">
-                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">💾</div>
-                        <div style="font-weight: 600; margin-bottom: 0.5rem;">Save Settings</div>
-                        <div style="font-size: 0.9rem; opacity: 0.8;">Always click "Save Settings" after making changes</div>
-                    </div>
+                    <h3>Tanuj Patel</h3>
+                    <p><a href="mailto:tan9uj@gmail.com" style="color: #667eea;">tan9uj@gmail.com</a></p>
                 </div>
             </div>
         </div>
-        <div class="card" id="troubleshooting">
-            <div class="section-header">
-                <div class="section-icon">
-                    <i class="fas fa-headset"></i>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Promptify</h3>
+                <p>The future of prompt engineering. Transform your AI interactions with intelligent prompt refinement.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
                 </div>
-                <h2>Support & Contact</h2>
             </div>
-            
-            <p><i class="fas fa-question-circle" style="color: #6366f1; margin-right: 0.5rem;"></i>Need help or have questions about Promptify? Our development team is here to assist you with any issues or feedback.</p>
-            
-            <div class="contact-grid">
-                <div class="contact-card">
-                    <div class="contact-avatar">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <div class="contact-name">Krishna Malhotra</div>
-                    <a href="mailto:krishnamalhotra150@gmail.com" class="email-link">
-                        <i class="fas fa-envelope"></i>
-                        krishnamalhotra150@gmail.com
-                    </a>
-                </div>
-                <div class="contact-card">
-                    <div class="contact-avatar">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <div class="contact-name">Tanuj Patel</div>
-                    <a href="mailto:tan9uj@gmail.com" class="email-link">
-                        <i class="fas fa-envelope"></i>
-                        tan9uj@gmail.com
-                    </a>
-                </div>
+            <div class="footer-section">
+                <h3>Product</h3>
+                <a href="#features">Features</a>
+                <a href="#demo">Demo</a>
+                <a href="#setup">Setup Guide</a>
+                <a href="https://chromewebstore.google.com/detail/gbdneaodlcoplkbpiemljcafpghcelld">Download</a>
+            </div>
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <a href="#why">Why Promptify</a>
+                <a href="#setup">Documentation</a>
+                <a href="#contact">Support</a>
+            </div>
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
             </div>
         </div>
-    </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Promptify. All rights reserved.</p>
+        </div>
+    </footer>
 
     <script>
-        function toggleMenu() {
-            const menuToggle = document.querySelector('.menu-toggle');
-            const navMenu = document.getElementById('navMenu');
-            
-            menuToggle.classList.toggle('active');
-            navMenu.classList.toggle('active');
-        }
-        
-        function closeMenu() {
-            const menuToggle = document.querySelector('.menu-toggle');
-            const navMenu = document.getElementById('navMenu');
-            
-            menuToggle.classList.remove('active');
-            navMenu.classList.remove('active');
-        }
-        
-        // Close menu when clicking outside
-        document.addEventListener('click', function(event) {
-            const navbar = document.querySelector('.navbar');
-            if (!navbar.contains(event.target)) {
-                closeMenu();
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
             }
         });
-        
-        // Smooth scrolling for anchor links
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        // Scroll reveal animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1203,10 +990,11 @@
                         behavior: 'smooth',
                         block: 'start'
                     });
+                    // Close mobile menu if open
+                    document.getElementById('navLinks').classList.remove('active');
                 }
             });
         });
-        </script>
+    </script>
 </body>
 </html>
-                
