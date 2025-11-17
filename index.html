@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Promptify - The Future of Prompt Engineering</title>
+    <title>Promptify - Professional Prompt Engineering</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
@@ -38,9 +38,9 @@
 
         /* Navigation */
         .navbar {
-            position: relative;
+            position: fixed;
             width: 100%;
-            background: var(--dark-bg);
+            background: rgba(10, 14, 39, 0.95);
             backdrop-filter: blur(20px);
             z-index: 1000;
             transition: all 0.3s ease;
@@ -48,12 +48,13 @@
 
         .navbar.scrolled {
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            background: rgba(10, 14, 39, 0.98);
         }
 
         .nav-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 1.2rem 2rem;
+            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -69,7 +70,7 @@
         }
 
         .logo img {
-            height: 170px;
+            height: 140px;
             width: auto;
             filter: drop-shadow(0 2px 8px rgba(102, 126, 234, 0.3));
         }
@@ -89,31 +90,16 @@
             position: relative;
         }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary-gradient);
-            transition: width 0.3s ease;
-        }
-
         .nav-links a:hover {
             color: var(--text-primary);
         }
 
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .cta-button {
-            padding: 0.75rem 1.5rem;
+        .nav-download {
+            padding: 0.75rem 1.75rem;
             background: var(--primary-gradient);
-            color: white;
+            color: white !important;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -121,14 +107,14 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
         }
 
-        .cta-button:hover {
+        .nav-download:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
         }
 
-        /* Mobile Menu */
         .mobile-menu-toggle {
             display: none;
             flex-direction: column;
@@ -153,7 +139,7 @@
             justify-content: center;
             position: relative;
             overflow: hidden;
-            padding: 4rem 2rem;
+            padding: 8rem 2rem 4rem;
         }
 
         .hero-background {
@@ -207,7 +193,7 @@
         }
 
         .hero-content {
-            max-width: 1400px;
+            max-width: 1000px;
             width: 100%;
             position: relative;
             z-index: 1;
@@ -218,11 +204,12 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            background: rgba(102, 126, 234, 0.1);
-            border: 1px solid rgba(102, 126, 234, 0.3);
-            padding: 0.5rem 1.25rem;
+            background: rgba(102, 126, 234, 0.15);
+            border: 1px solid rgba(102, 126, 234, 0.4);
+            padding: 0.6rem 1.5rem;
             border-radius: 50px;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            font-weight: 500;
             margin-bottom: 2rem;
             animation: slideDown 0.8s ease-out;
         }
@@ -240,9 +227,9 @@
 
         .hero h1 {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
             font-weight: 700;
-            line-height: 1.1;
+            line-height: 1.15;
             margin-bottom: 1.5rem;
             animation: fadeInUp 1s ease-out 0.2s both;
         }
@@ -266,67 +253,112 @@
         }
 
         .hero p {
-            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
             color: var(--text-secondary);
-            max-width: 700px;
+            max-width: 650px;
             margin: 0 auto 3rem;
+            line-height: 1.7;
             animation: fadeInUp 1s ease-out 0.4s both;
         }
 
-        .hero-buttons {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            flex-wrap: wrap;
+        .hero-cta {
             animation: fadeInUp 1s ease-out 0.6s both;
         }
 
-        .primary-button {
-            padding: 1rem 2.5rem;
+        .mega-download-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem 3.5rem;
             background: var(--primary-gradient);
             color: white;
             border: none;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 1.1rem;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 1.3rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             text-decoration: none;
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mega-download-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .mega-download-button:hover::before {
+            left: 100%;
+        }
+
+        .mega-download-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 25px 60px rgba(102, 126, 234, 0.6);
+        }
+
+        .mega-download-button i {
+            font-size: 1.5rem;
+        }
+
+        .trust-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+            opacity: 0.8;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .trust-item i {
+            color: #4ade80;
+            font-size: 1.2rem;
+        }
+
+        /* Demo Preview */
+        .demo-preview {
+            margin-top: 4rem;
+            animation: fadeInUp 1s ease-out 0.8s both;
+        }
+
+        .demo-link {
             display: inline-flex;
             align-items: center;
             gap: 0.75rem;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
-        }
-
-        .primary-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
-        }
-
-        .secondary-button {
-            padding: 1rem 2.5rem;
-            background: transparent;
-            color: var(--text-primary);
-            border: 2px solid rgba(102, 126, 234, 0.5);
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .secondary-button:hover {
+            padding: 1rem 2rem;
             background: rgba(102, 126, 234, 0.1);
-            border-color: rgba(102, 126, 234, 0.8);
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-radius: 12px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .demo-link:hover {
+            background: rgba(102, 126, 234, 0.2);
+            border-color: rgba(102, 126, 234, 0.5);
+            transform: translateY(-2px);
         }
 
         /* Section Styles */
         section {
-            padding: 6rem 2rem;
+            padding: 5rem 2rem;
             position: relative;
         }
 
@@ -346,55 +378,34 @@
             border: 1px solid rgba(102, 126, 234, 0.3);
             padding: 0.5rem 1.25rem;
             border-radius: 50px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
             margin-bottom: 1rem;
             color: var(--accent);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
 
         .section-header h2 {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(2rem, 4vw, 3rem);
+            font-size: clamp(2rem, 4vw, 2.75rem);
             font-weight: 700;
             margin-bottom: 1rem;
         }
 
         .section-header p {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             color: var(--text-secondary);
-            max-width: 700px;
+            max-width: 650px;
             margin: 0 auto;
         }
 
-        /* Video Section */
-        .video-section {
-            background: var(--dark-bg);
-        }
-
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            border-radius: 20px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(102, 126, 234, 0.2);
-        }
-
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
-        /* Features Grid */
+        /* Features Grid - Consolidated */
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
             gap: 2rem;
-            margin-top: 4rem;
+            margin-top: 3rem;
         }
 
         .feature-card {
@@ -407,7 +418,7 @@
         }
 
         .feature-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-8px);
             border-color: rgba(102, 126, 234, 0.3);
             box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
         }
@@ -429,26 +440,28 @@
         }
 
         .feature-card h3 {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             margin-bottom: 1rem;
             font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
         }
 
         .feature-card p {
             color: var(--text-secondary);
-            line-height: 1.8;
+            line-height: 1.7;
+            font-size: 1.05rem;
         }
 
-        /* Setup Steps */
+        /* Setup Section */
         .setup-steps {
             max-width: 900px;
-            margin: 0 auto;
+            margin: 3rem auto 0;
         }
 
         .step {
             display: flex;
             gap: 2rem;
-            margin-bottom: 3rem;
+            margin-bottom: 2.5rem;
             opacity: 0;
             transform: translateX(-30px);
             animation: slideInLeft 0.6s ease-out forwards;
@@ -456,8 +469,6 @@
 
         .step:nth-child(1) { animation-delay: 0.1s; }
         .step:nth-child(2) { animation-delay: 0.2s; }
-        .step:nth-child(3) { animation-delay: 0.3s; }
-        .step:nth-child(4) { animation-delay: 0.4s; }
 
         @keyframes slideInLeft {
             to {
@@ -482,48 +493,112 @@
 
         .step-content h3 {
             font-size: 1.3rem;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.5rem;
             font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
         }
 
         .step-content p {
             color: var(--text-secondary);
+            line-height: 1.7;
         }
 
-        /* CTA Section */
-        .cta-section {
+        /* Final CTA Section */
+        .final-cta {
             background: var(--primary-gradient);
             text-align: center;
             border-radius: 30px;
             padding: 5rem 2rem;
-            margin: 4rem 0;
+            margin: 4rem auto;
+            max-width: 1200px;
         }
 
-        .cta-section h2 {
+        .final-cta h2 {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(2rem, 4vw, 3rem);
-            margin-bottom: 1.5rem;
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            margin-bottom: 1rem;
+            font-weight: 700;
         }
 
-        .cta-section p {
+        .final-cta p {
             font-size: 1.2rem;
             margin-bottom: 2.5rem;
             opacity: 0.95;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .cta-section .primary-button {
+        .final-cta .mega-download-button {
             background: white;
             color: #667eea;
         }
 
-        .cta-section .primary-button:hover {
-            transform: translateY(-3px) scale(1.05);
+        .final-cta .mega-download-button:hover {
+            transform: translateY(-5px) scale(1.08);
+        }
+
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+
+        .contact-icon i {
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .contact-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.75rem;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .contact-card a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .contact-card a:hover {
+            color: #4facfe;
         }
 
         /* Footer */
         footer {
             background: rgba(15, 23, 42, 0.8);
-            padding: 3rem 2rem;
+            padding: 3rem 2rem 2rem;
             border-top: 1px solid rgba(102, 126, 234, 0.1);
         }
 
@@ -531,22 +606,29 @@
             max-width: 1400px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: 2fr 1fr 1fr 1fr;
             gap: 3rem;
         }
 
         .footer-section h3 {
             font-family: 'Space Grotesk', sans-serif;
             margin-bottom: 1.5rem;
+            font-size: 1.1rem;
         }
 
-        .footer-section p,
+        .footer-section p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
         .footer-section a {
             color: var(--text-secondary);
             text-decoration: none;
             display: block;
             margin-bottom: 0.75rem;
             transition: color 0.3s ease;
+            font-size: 0.95rem;
         }
 
         .footer-section a:hover {
@@ -573,6 +655,7 @@
         .social-links a:hover {
             background: var(--primary-gradient);
             border-color: transparent;
+            transform: translateY(-3px);
         }
 
         .footer-bottom {
@@ -581,9 +664,16 @@
             padding-top: 2rem;
             border-top: 1px solid rgba(102, 126, 234, 0.1);
             color: var(--text-secondary);
+            font-size: 0.9rem;
         }
 
         /* Responsive */
+        @media (max-width: 968px) {
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
@@ -606,16 +696,17 @@
                 display: flex;
             }
 
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
+            .logo img {
+                height: 100px;
             }
 
-            .primary-button,
-            .secondary-button {
-                width: 100%;
-                max-width: 300px;
-                justify-content: center;
+            .mega-download-button {
+                padding: 1.25rem 2.5rem;
+                font-size: 1.1rem;
+            }
+
+            .trust-indicators {
+                gap: 1.5rem;
             }
 
             .features-grid {
@@ -624,6 +715,16 @@
 
             .step {
                 flex-direction: column;
+                gap: 1rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -645,15 +746,13 @@
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <div class="logo">
-                <img src="icons/promptify.png" alt="Promptify Logo">
+                <img src="icons/promptify.png" alt="Promptify">
             </div>
             <ul class="nav-links" id="navLinks">
-                <li><a href="#demo">Demo</a></li>
                 <li><a href="#features">Features</a></li>
-                <li><a href="#setup">Setup</a></li>
-                <li><a href="#why">Why Promptify</a></li>
+                <li><a href="#setup">Quick Start</a></li>
                 <li><a href="#contact">Contact</a></li>
-                <li><a href="https://chromewebstore.google.com/detail/gbdneaodlcoplkbpiemljcafpghcelld" class="cta-button">
+                <li><a href="https://chromewebstore.google.com/detail/gbdneaodlcoplkbpiemljcafpghcelld" class="nav-download">
                     <i class="fab fa-chrome"></i> Download
                 </a></li>
             </ul>
@@ -675,53 +774,67 @@
         <div class="hero-content">
             <div class="hero-badge">
                 <i class="fas fa-sparkles"></i>
-                The Future of Prompt Engineering is Here
+                Professional Prompt Engineering Made Simple
             </div>
             <h1>
-                Transform Your Prompts<br>
-                Into <span class="gradient-text">Intelligent Instructions</span>
+                Transform Basic Prompts Into<br>
+                <span class="gradient-text">Expert-Level Instructions</span>
             </h1>
             <p>
-                Elevate your AI interactions with instant, AI-powered prompt refinement. 
-                Get smarter responses by crafting better prompts in seconds.
+                Unlock AI's full potential with instant, intelligent prompt refinement. Get professional-quality responses by crafting better prompts in seconds.
             </p>
-            <div class="hero-buttons">
-                <a href="https://chromewebstore.google.com/detail/gbdneaodlcoplkbpiemljcafpghcelld" class="primary-button">
+            <div class="hero-cta">
+                <a href="https://chromewebstore.google.com/detail/gbdneaodlcoplkbpiemljcafpghcelld" class="mega-download-button">
                     <i class="fab fa-chrome"></i>
-                    Get Chrome Extension
+                    Download Free Extension
                 </a>
-                <a href="#demo" class="secondary-button">
-                    <i class="fas fa-play-circle"></i>
-                    Watch Demo
-                </a>
+                <div class="trust-indicators">
+                    <div class="trust-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Free Forever</span>
+                    </div>
+                    <div class="trust-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>No Login Required</span>
+                    </div>
+                    <div class="trust-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>JSON Prompts</span>
+                    </div>
+                    <div class="trust-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>XML Prompts</span>
+                    </div>
+                    <div class="trust-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Adaptive Learning</span>
+                    </div>
+                    <div class="trust-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Complexity Control</span>
+                    </div>
+                    <div class="trust-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Full Customization</span>
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Video Demo Section -->
-    <section id="demo" class="video-section">
-        <div class="container">
-            <div class="section-header scroll-reveal">
-                <span class="section-badge">SEE IT IN ACTION</span>
-                <h2>Experience Promptify</h2>
-                <p>Watch how Promptify transforms basic prompts into sophisticated, detailed instructions in real-time</p>
-            </div>
-            <div class="scroll-reveal" style="text-align: center;">
-                <a href="https://www.youtube.com/watch?v=dyy5Si0rzXo" target="_blank" class="primary-button" style="display: inline-flex;">
+            <div class="demo-preview">
+                <a href="https://www.youtube.com/watch?v=dyy5Si0rzXo" target="_blank" class="demo-link">
                     <i class="fab fa-youtube"></i>
-                    Watch Demo on YouTube
+                    Watch 2-Minute Demo
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
+    <!-- Features Section - Consolidated -->
     <section id="features">
         <div class="container">
             <div class="section-header scroll-reveal">
-                <span class="section-badge">FEATURES</span>
-                <h2>Built for Speed and Precision</h2>
-                <p>Everything you need to unlock the full potential of AI conversations</p>
+                <span class="section-badge">Core Capabilities</span>
+                <h2>Everything You Need for Better AI Conversations</h2>
+                <p>Professional-grade prompt engineering tools designed for speed, precision, and results</p>
             </div>
             <div class="features-grid">
                 <div class="feature-card scroll-reveal">
@@ -729,42 +842,42 @@
                         <i class="fas fa-bolt"></i>
                     </div>
                     <h3>Instant Refinement</h3>
-                    <p>Highlight any text and transform it into a sophisticated prompt with a single click. No waiting, no complexity.</p>
+                    <p>Highlight any text and transform it into a sophisticated, detailed prompt with a single click. No manual editing required.</p>
+                </div>
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3>Superior Accuracy</h3>
+                    <p>Receive precise, relevant responses that directly address your needs. Well-crafted prompts eliminate ambiguity and deliver professional results.</p>
                 </div>
                 <div class="feature-card scroll-reveal">
                     <div class="feature-icon">
                         <i class="fas fa-sliders-h"></i>
                     </div>
                     <h3>Adjustable Complexity</h3>
-                    <p>Control refinement depth with 1-5 iteration levels. Balance speed with precision based on your needs.</p>
+                    <p>Control refinement depth with 1-5 iteration levels. Balance speed with precision based on your specific requirements.</p>
                 </div>
                 <div class="feature-card scroll-reveal">
                     <div class="feature-icon">
                         <i class="fas fa-plug"></i>
                     </div>
-                    <h3>Universal Integration</h3>
-                    <p>Works seamlessly with ChatGPT, Claude, and any AI platform. One extension, unlimited possibilities.</p>
+                    <h3>Universal Compatibility</h3>
+                    <p>Works seamlessly with ChatGPT, Claude, Gemini, and any AI platform. One extension, unlimited applications.</p>
+                </div>
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Save Hours Daily</h3>
+                    <p>Eliminate time-consuming prompt iteration. Get optimal results on the first try and accelerate your workflow.</p>
                 </div>
                 <div class="feature-card scroll-reveal">
                     <div class="feature-icon">
                         <i class="fas fa-shield-alt"></i>
                     </div>
                     <h3>Privacy First</h3>
-                    <p>Your prompts stay private. No accounts, no data collection, just pure functionality with your API key.</p>
-                </div>
-                <div class="feature-card scroll-reveal">
-                    <div class="feature-icon">
-                        <i class="fas fa-keyboard"></i>
-                    </div>
-                    <h3>Keyboard Shortcuts</h3>
-                    <p>Customize hotkeys for lightning-fast access. Streamline your workflow with intuitive controls.</p>
-                </div>
-                <div class="feature-card scroll-reveal">
-                    <div class="feature-icon">
-                        <i class="fas fa-magic"></i>
-                    </div>
-                    <h3>Smart Context</h3>
-                    <p>Add custom instructions to tailor AI behavior. Your preferences, automatically applied to every prompt.</p>
+                    <p>Your prompts remain completely private. No accounts, no data collection—just pure functionality with your own API key.</p>
                 </div>
             </div>
         </div>
@@ -774,105 +887,36 @@
     <section id="setup">
         <div class="container">
             <div class="section-header scroll-reveal">
-                <span class="section-badge">GET STARTED</span>
-                <h2>Setup in Minutes</h2>
-                <p>Four simple steps to unlock better AI conversations</p>
+                <span class="section-badge">Get Started</span>
+                <h2>Ready in 2 Simple Steps</h2>
+                <p>Start refining your prompts instantly—no setup required</p>
             </div>
             <div class="setup-steps">
                 <div class="step scroll-reveal">
                     <div class="step-number">1</div>
                     <div class="step-content">
                         <h3>Install Extension</h3>
-                        <p>Download Promptify from the Chrome Web Store. The extension is lightweight and installs instantly.</p>
+                        <p>Download from the Chrome Web Store. Lightweight installation takes seconds—no account or API key needed.</p>
                     </div>
                 </div>
                 <div class="step scroll-reveal">
                     <div class="step-number">2</div>
                     <div class="step-content">
-                        <h3>Get Your API Key</h3>
-                        <p>Obtain your free Groq API key. Press Ctrl+B on any AI platform and click "Get Your API Key" to navigate to Groq.</p>
-                    </div>
-                </div>
-                <div class="step scroll-reveal">
-                    <div class="step-number">3</div>
-                    <div class="step-content">
-                        <h3>Configure Settings</h3>
-                        <p>Enter your API key, adjust complexity levels, and add any custom instructions to personalize your experience.</p>
-                    </div>
-                </div>
-                <div class="step scroll-reveal">
-                    <div class="step-number">4</div>
-                    <div class="step-content">
-                        <h3>Start Refining</h3>
-                        <p>Highlight any text in your AI chat and click the popup button. Watch your prompts transform instantly!</p>
+                        <h3>Start Refining Instantly</h3>
+                        <p>Highlight any text in your AI chat and click the popup button. Your prompts transform immediately into expert-level instructions. It's that simple.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Why Section -->
-    <section id="why">
-        <div class="container">
-            <div class="section-header scroll-reveal">
-                <span class="section-badge">THE IMPACT</span>
-                <h2>Why Prompt Quality Matters</h2>
-                <p>The difference between mediocre and exceptional AI responses</p>
-            </div>
-            <div class="features-grid">
-                <div class="feature-card scroll-reveal">
-                    <div class="feature-icon">
-                        <i class="fas fa-bullseye"></i>
-                    </div>
-                    <h3>More Accurate Responses</h3>
-                    <p>Well-crafted prompts lead to precise, relevant answers that directly address your needs without ambiguity.</p>
-                </div>
-                <div class="feature-card scroll-reveal">
-                    <div class="feature-icon">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                    <h3>Save Hours of Iteration</h3>
-                    <p>Stop wasting time refining prompts manually. Get it right the first time and move faster.</p>
-                </div>
-                <div class="feature-card scroll-reveal">
-                    <div class="feature-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Consistent Quality</h3>
-                    <p>Maintain professional-grade outputs across all your AI interactions with standardized prompt engineering.</p>
-                </div>
-                <div class="feature-card scroll-reveal">
-                    <div class="feature-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <h3>Learn Best Practices</h3>
-                    <p>Discover effective prompting techniques by seeing how your inputs get enhanced and improved.</p>
-                </div>
-                <div class="feature-card scroll-reveal">
-                    <div class="feature-icon">
-                        <i class="fas fa-rocket"></i>
-                    </div>
-                    <h3>Unlock AI Potential</h3>
-                    <p>Access advanced capabilities of AI models by providing them with detailed, well-structured instructions.</p>
-                </div>
-                <div class="feature-card scroll-reveal">
-                    <div class="feature-icon">
-                        <i class="fas fa-trophy"></i>
-                    </div>
-                    <h3>Professional Results</h3>
-                    <p>Elevate your work quality with outputs that meet professional standards every single time.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
+    <!-- Final CTA Section -->
     <section>
         <div class="container">
-            <div class="cta-section scroll-reveal">
-                <h2>Ready to Transform Your AI Experience?</h2>
-                <p>Join thousands of users who are already crafting better prompts and getting smarter responses</p>
-                <a href="https://chromewebstore.google.com/detail/gbdneaodlcoplkbpiemljcafpghcelld" class="primary-button">
+            <div class="final-cta scroll-reveal">
+                <h2>Ready to Elevate Your AI Experience?</h2>
+                <p>Join professionals who are achieving better results with every conversation</p>
+                <a href="https://chromewebstore.google.com/detail/gbdneaodlcoplkbpiemljcafpghcelld" class="mega-download-button">
                     <i class="fab fa-chrome"></i>
                     Download Promptify Now
                 </a>
@@ -884,24 +928,24 @@
     <section id="contact">
         <div class="container">
             <div class="section-header scroll-reveal">
-                <span class="section-badge">GET IN TOUCH</span>
-                <h2>Need Support?</h2>
-                <p>Our team is here to help with any questions or feedback</p>
+                <span class="section-badge">Support</span>
+                <h2>Get in Touch</h2>
+                <p>Have questions? We're here to help</p>
             </div>
-            <div class="features-grid" style="max-width: 800px; margin: 0 auto;">
-                <div class="feature-card scroll-reveal">
-                    <div class="feature-icon">
-                        <i class="fas fa-user"></i>
+            <div class="contact-grid">
+                <div class="contact-card scroll-reveal">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
                     </div>
                     <h3>Krishna Malhotra</h3>
-                    <p><a href="mailto:krishnamalhotra150@gmail.com" style="color: #667eea;">krishnamalhotra150@gmail.com</a></p>
+                    <a href="mailto:krishnamalhotra150@gmail.com">krishnamalhotra150@gmail.com</a>
                 </div>
-                <div class="feature-card scroll-reveal">
-                    <div class="feature-icon">
-                        <i class="fas fa-user"></i>
+                <div class="contact-card scroll-reveal">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
                     </div>
                     <h3>Tanuj Patel</h3>
-                    <p><a href="mailto:tan9uj@gmail.com" style="color: #667eea;">tan9uj@gmail.com</a></p>
+                    <a href="mailto:tan9uj@gmail.com">tan9uj@gmail.com</a>
                 </div>
             </div>
         </div>
@@ -912,25 +956,24 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h3>Promptify</h3>
-                <p>The future of prompt engineering. Transform your AI interactions with intelligent prompt refinement.</p>
+                <p>Professional prompt engineering tools that transform your AI interactions. Simple, powerful, and privacy-focused.</p>
                 <div class="social-links">
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-github"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.instagram.com/use_promptify" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
                 </div>
             </div>
             <div class="footer-section">
                 <h3>Product</h3>
                 <a href="#features">Features</a>
-                <a href="#demo">Demo</a>
-                <a href="#setup">Setup Guide</a>
+                <a href="#setup">Quick Start</a>
                 <a href="https://chromewebstore.google.com/detail/gbdneaodlcoplkbpiemljcafpghcelld">Download</a>
             </div>
             <div class="footer-section">
-                <h3>Resources</h3>
-                <a href="#why">Why Promptify</a>
-                <a href="#setup">Documentation</a>
-                <a href="#contact">Support</a>
+                <h3>Support</h3>
+                <a href="#contact">Contact Us</a>
+                <a href="https://www.youtube.com/watch?v=dyy5Si0rzXo" target="_blank">Video Tutorial</a>
             </div>
             <div class="footer-section">
                 <h3>Legal</h3>
@@ -988,7 +1031,6 @@
                         behavior: 'smooth',
                         block: 'start'
                     });
-                    // Close mobile menu if open
                     document.getElementById('navLinks').classList.remove('active');
                 }
             });
