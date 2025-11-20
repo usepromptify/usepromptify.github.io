@@ -36,19 +36,13 @@
             overflow-x: hidden;
         }
 
-        /* Navigation */
+        /* Navigation - Now flows with page */
         .navbar {
-            position: fixed;
+            position: relative;
             width: 100%;
-            background: rgba(10, 14, 39, 0.95);
-            backdrop-filter: blur(20px);
+            background: transparent;
             z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        .navbar.scrolled {
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            background: rgba(10, 14, 39, 0.98);
+            padding-top: 1rem;
         }
 
         .nav-container {
@@ -133,13 +127,13 @@
 
         /* Hero Section */
         .hero {
-            min-height: 100vh;
+            min-height: 85vh;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
             overflow: hidden;
-            padding: 8rem 2rem 4rem;
+            padding: 2rem 2rem 4rem;
         }
 
         .hero-background {
@@ -987,16 +981,6 @@
     </footer>
 
     <script>
-        // Navbar scroll effect
-        window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-
         // Mobile menu toggle
         function toggleMobileMenu() {
             const navLinks = document.getElementById('navLinks');
