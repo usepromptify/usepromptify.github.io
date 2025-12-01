@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email Verified - Promptify Pro</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 500px;
+      width: 100%;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .checkmark {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: #10b981;
+      margin: 0 auto 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: scaleIn 0.5s ease-out;
+    }
+
+    @keyframes scaleIn {
+      0% { transform: scale(0); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    .checkmark svg {
+      width: 60px;
+      height: 60px;
+      stroke: white;
+      stroke-width: 3;
+      fill: none;
+    }
+
+    h1 {
+      color: #1f2937;
+      font-size: 32px;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .subtitle {
+      color: #6b7280;
+      font-size: 18px;
+      margin-bottom: 32px;
+    }
+
+    .success-box {
+      background: #d1fae5;
+      border: 2px solid #10b981;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .success-box h2 {
+      color: #065f46;
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+
+    .success-box p {
+      color: #047857;
+      font-size: 14px;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .features {
+      text-align: left;
+      background: #f9fafb;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .features h3 {
+      color: #1f2937;
+      font-size: 16px;
+      margin-bottom: 16px;
+      font-weight: 600;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .feature-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .feature-icon {
+      font-size: 20px;
+      margin-right: 12px;
+      flex-shrink: 0;
+    }
+
+    .feature-text {
+      color: #4b5563;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .button {
+      display: inline-block;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 14px 32px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .footer {
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid #e5e7eb;
+      color: #9ca3af;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="checkmark">
+      <svg viewBox="0 0 52 52">
+        <path d="M14 27l10 10 20-20"/>
+      </svg>
+    </div>
+
+    <h1>Email Verified!</h1>
+    <p class="subtitle">Your Promptify Pro account is now active</p>
+
+    <div class="success-box">
+      <h2>🎉 You're All Set!</h2>
+      <p>
+        Your Pro features are now active across all your devices. 
+        Start using unlimited prompt enhancements right away!
+      </p>
+    </div>
+
+    <div class="features">
+      <h3>Your Pro Features:</h3>
+      
+      <div class="feature-item">
+        <span class="feature-icon">✨</span>
+        <span class="feature-text"><strong>Unlimited Enhancements</strong> - No daily limits</span>
+      </div>
+
+      <div class="feature-item">
+        <span class="feature-icon">🔥</span>
+        <span class="feature-text"><strong>Multi-Pass Enhancement</strong> - Up to 3 passes for complex prompts</span>
+      </div>
+
+      <div class="feature-item">
+        <span class="feature-icon">📊</span>
+        <span class="feature-text"><strong>JSON & XML Formats</strong> - Unlimited structured outputs</span>
+      </div>
+
+      <div class="feature-item">
+        <span class="feature-icon">🎨</span>
+        <span class="feature-text"><strong>AI Customization</strong> - Control behavior and tone</span>
+      </div>
+
+      <div class="feature-item">
+        <span class="feature-icon">💡</span>
+        <span class="feature-text"><strong>Behavior Analytics</strong> - Unlimited insights and tips</span>
+      </div>
+
+      <div class="feature-item">
+        <span class="feature-icon">🚀</span>
+        <span class="feature-text"><strong>Priority Support</strong> - Fast response times</span>
+      </div>
+    </div>
+
+    <a href="https://usepromptify.github.io/" class="button">
+      Start Using Promptify Pro
+    </a>
+
+    <div class="footer">
+      <p>Questions? Contact krishna@joinpromptify.com</p>
+      <p style="margin-top: 8px;">© 2024 Promptify. All rights reserved.</p>
+    </div>
+  </div>
+</body>
+</html>
