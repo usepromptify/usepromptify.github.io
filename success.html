@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Successful - Promptify Pro</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 500px;
+      width: 100%;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .checkmark {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: #10b981;
+      margin: 0 auto 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .checkmark svg {
+      width: 50px;
+      height: 50px;
+      stroke: white;
+      stroke-width: 3;
+      fill: none;
+    }
+
+    h1 {
+      color: #1f2937;
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    .subtitle {
+      color: #6b7280;
+      font-size: 16px;
+      margin-bottom: 32px;
+    }
+
+    .license-box {
+      background: #f3f4f6;
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+
+    .license-label {
+      color: #6b7280;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .license-key {
+      font-family: 'Courier New', monospace;
+      font-size: 20px;
+      font-weight: 600;
+      color: #1f2937;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+      word-break: break-all;
+    }
+
+    .copy-button {
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 24px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .copy-button:hover {
+      background: #5568d3;
+    }
+
+    .copy-button:active {
+      transform: scale(0.98);
+    }
+
+    .copy-button.copied {
+      background: #10b981;
+    }
+
+    .instructions {
+      text-align: left;
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      padding: 16px;
+      border-radius: 4px;
+      margin-bottom: 24px;
+    }
+
+    .instructions h3 {
+      color: #92400e;
+      font-size: 14px;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .instructions ol {
+      color: #78350f;
+      font-size: 14px;
+      padding-left: 20px;
+    }
+
+    .instructions li {
+      margin-bottom: 8px;
+    }
+
+    .loading {
+      color: #6b7280;
+      font-size: 14px;
+      padding: 20px;
+    }
+
+    .error {
+      background: #fee2e2;
+      border-left: 4px solid #ef4444;
+      padding: 16px;
+      border-radius: 4px;
+      color: #991b1b;
+      font-size: 14px;
+    }
+
+    .footer {
+      margin-top: 24px;
+      color: #9ca3af;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="checkmark">
+      <svg viewBox="0 0 52 52">
+        <path d="M14 27l10 10 20-20"/>
+      </svg>
+    </div>
+
+    <h1>Payment Successful!</h1>
+    <p class="subtitle">Thank you for purchasing Promptify Pro</p>
+
+    <div id="content">
+      <div class="loading">
+        Loading your license key...
+      </div>
+    </div>
+
+    <div class="footer">
+      Questions? Contact krishna@joinpromptify.com
+    </div>
+  </div>
+
+  <script>
+    async function loadLicense() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const sessionId = urlParams.get('session_id');
+
+      if (!sessionId) {
+        showError('No session ID found. Please contact support.');
+        return;
+      }
+
+      try {
+        // Fetch license from your Cloudflare Worker
+        const response = await fetch(
+          `https://promptify-stripe.promptify-api.workers.dev/get-license?session=${sessionId}`
+        );
+
+        if (!response.ok) {
+          throw new Error('Failed to retrieve license');
+        }
+
+        const data = await response.json();
+        
+        if (data.licenseKey) {
+          showLicense(data.licenseKey);
+        } else {
+          showError('License key not found. It may take a few moments to generate. Please refresh the page or contact support.');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        showError('Failed to load license key. Please refresh the page or contact support with your order confirmation email.');
+      }
+    }
+
+    function showLicense(licenseKey) {
+      const content = document.getElementById('content');
+      content.innerHTML = `
+        <div class="license-box">
+          <div class="license-label">Your License Key</div>
+          <div class="license-key" id="licenseKey">${licenseKey}</div>
+          <button class="copy-button" onclick="copyLicense()">
+            Copy License Key
+          </button>
+        </div>
+
+        <div class="instructions">
+          <h3>How to Activate:</h3>
+          <ol>
+            <li>Open the Promptify extension</li>
+            <li>Click the settings icon (⚙️)</li>
+            <li>Click "Activate Pro License"</li>
+            <li>Paste your license key and click "Activate"</li>
+          </ol>
+        </div>
+      `;
+    }
+
+    function showError(message) {
+      const content = document.getElementById('content');
+      content.innerHTML = `
+        <div class="error">
+          ${message}
+        </div>
+      `;
+    }
+
+    function copyLicense() {
+      const licenseKey = document.getElementById('licenseKey').textContent;
+      navigator.clipboard.writeText(licenseKey).then(() => {
+        const button = document.querySelector('.copy-button');
+        button.textContent = '✓ Copied!';
+        button.classList.add('copied');
+        
+        setTimeout(() => {
+          button.textContent = 'Copy License Key';
+          button.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    // Load license when page loads
+    loadLicense();
+  </script>
+</body>
+</html>
