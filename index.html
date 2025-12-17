@@ -15,8 +15,8 @@
         }
 
         :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
+            --primary: #000000;
+            --primary-dark: #1a1a1a;
             --secondary: #64748b;
             --dark: #0f172a;
             --light: #f8fafc;
@@ -35,6 +35,43 @@
             color: var(--text-primary);
             line-height: 1.6;
             overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* Custom Cursor */
+        .cursor-circle {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(0, 0, 0, 0.3);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transition: transform 0.15s ease-out, border-color 0.3s ease;
+            left: 0;
+            top: 0;
+        }
+
+        .cursor-circle::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 6px;
+            height: 6px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .cursor-circle.clicking {
+            transform: scale(0.8);
+            border-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .cursor-circle.clicking::before {
+            background: rgba(0, 0, 0, 0.8);
         }
 
         /* Navigation */
@@ -150,13 +187,13 @@
             align-items: center;
             gap: 0.5rem;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 2px 8px rgba(99, 102, 241, 0.2);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
         }
 
         .download-btn:hover {
             background: var(--primary-dark);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
         .download-btn:active {
@@ -239,9 +276,9 @@
             display: inline-flex;
             align-items: center;
             gap: 0.75rem;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
-            animation: fadeInUp 0.8s ease-out 0.6s both, pulse 2s ease-in-out 2s infinite;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+            animation: fadeInUp 0.8s ease-out 0.6s both;
             position: relative;
             overflow: hidden;
         }
@@ -266,12 +303,12 @@
 
         .primary-download:hover {
             background: var(--primary-dark);
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
         }
 
         .primary-download:active {
-            transform: translateY(-1px) scale(1);
+            transform: translateY(-1px);
         }
 
         /* Social Proof Section */
@@ -314,15 +351,6 @@
             width: 1px;
             height: 24px;
             background: var(--border);
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
-            }
-            50% {
-                box-shadow: 0 4px 20px rgba(99, 102, 241, 0.5);
-            }
         }
 
         .features-list {
@@ -395,6 +423,130 @@
             transform: translateX(5px);
         }
 
+        /* Interactive Demo Section */
+        .demo-section {
+            max-width: 800px;
+            margin: 2.5rem auto 0;
+            animation: fadeInUp 0.8s ease-out 1.2s both;
+        }
+
+        .demo-examples {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .demo-container {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+        }
+
+        .demo-container:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        .demo-input {
+            padding: 1.25rem 1.5rem;
+            background: #fafafa;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .demo-input:hover {
+            background: #f5f5f5;
+        }
+
+        .demo-input-text {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-style: italic;
+        }
+
+        .demo-arrow {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            transition: transform 0.3s ease;
+        }
+
+        .demo-input.active .demo-arrow {
+            transform: rotate(90deg);
+        }
+
+        .demo-output {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+        }
+
+        .demo-output.active {
+            max-height: 700px;
+        }
+
+        .demo-output-content {
+            padding: 1.5rem;
+            background: #ffffff;
+        }
+
+        .demo-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .demo-label i {
+            color: var(--primary);
+        }
+
+        .json-display {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1.25rem;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.8rem;
+            line-height: 1.7;
+            color: #2d3748;
+            max-height: 500px;
+            overflow-y: auto;
+            white-space: pre;
+            tab-size: 2;
+            text-align: left;
+        }
+
+        .json-display::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .json-display::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .json-display::-webkit-scrollbar-thumb {
+            background: #cbd5e0;
+            border-radius: 4px;
+        }
+
+        .json-display::-webkit-scrollbar-thumb:hover {
+            background: #a0aec0;
+        }
+
         /* Interactive How It Works Section */
         .how-it-works {
             background: var(--light);
@@ -438,12 +590,12 @@
         .step-icon-circle {
             width: 120px;
             height: 120px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            background: var(--primary);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 10px 40px rgba(99, 102, 241, 0.3);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
             transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             z-index: 2;
@@ -466,8 +618,8 @@
         }
 
         .step-item:hover .step-icon-circle {
-            transform: scale(1.1) rotate(10deg);
-            box-shadow: 0 15px 50px rgba(99, 102, 241, 0.4);
+            transform: scale(1.1);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
         }
 
         .step-icon-circle i {
@@ -507,57 +659,6 @@
         .step-connector.active {
             opacity: 0.3;
             transform: scaleY(1);
-        }
-
-        /* Alternate positioning for visual interest */
-        .step-item[data-step="1"] .step-visual {
-            animation-delay: 0.1s;
-        }
-
-        .step-item[data-step="2"] .step-visual {
-            animation-delay: 0.2s;
-        }
-
-        .step-item[data-step="3"] .step-visual {
-            animation-delay: 0.3s;
-        }
-
-        .step-item[data-step="4"] .step-visual {
-            animation-delay: 0.4s;
-        }
-
-        .step-item[data-step="5"] .step-visual {
-            animation-delay: 0.5s;
-        }
-
-        /* Responsive for interactive steps */
-        @media (max-width: 768px) {
-            .step-item,
-            .step-item[data-step="2"],
-            .step-item[data-step="4"] {
-                flex-direction: column;
-                text-align: center;
-                transform: translateY(30px);
-                gap: 1.5rem;
-            }
-
-            .step-item.active {
-                transform: translateY(0);
-            }
-
-            .step-icon-circle {
-                width: 100px;
-                height: 100px;
-            }
-
-            .step-icon-circle i {
-                font-size: 2.5rem;
-            }
-
-            .step-connector {
-                margin-left: auto;
-                margin-right: auto;
-            }
         }
 
         /* Section Styles */
@@ -609,7 +710,7 @@
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 2rem;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             opacity: 0;
             transform: translateY(30px);
         }
@@ -621,8 +722,8 @@
 
         .feature-card:hover {
             border-color: var(--primary);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-            transform: translateY(-8px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            transform: translateY(-4px);
         }
 
         .feature-icon {
@@ -638,7 +739,7 @@
         }
 
         .feature-card:hover .feature-icon {
-            transform: scale(1.1) rotate(5deg);
+            transform: scale(1.05);
         }
 
         .feature-icon i {
@@ -706,8 +807,8 @@
         }
 
         .step:hover .step-number {
-            transform: scale(1.1);
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
         .step-content h3 {
@@ -816,7 +917,7 @@
         }
 
         .contact-card:hover .contact-icon {
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
 
         .contact-icon i {
@@ -860,7 +961,7 @@
 
         .contact-email:hover,
         .contact-linkedin:hover {
-            background: rgba(99, 102, 241, 0.1);
+            background: rgba(0, 0, 0, 0.05);
             color: var(--primary-dark);
             transform: translateX(3px);
         }
@@ -933,20 +1034,20 @@
         .social-links a {
             width: 44px;
             height: 44px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            background: var(--primary);
             border: none;
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             color: white;
         }
 
         .social-links a:hover {
             transform: translateY(-5px) scale(1.1);
-            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
         }
 
         .social-links a i {
@@ -996,6 +1097,14 @@
         }
 
         @media (max-width: 768px) {
+            body {
+                cursor: auto;
+            }
+
+            .cursor-circle {
+                display: none;
+            }
+
             .nav-links {
                 display: none;
                 position: absolute;
@@ -1067,20 +1176,49 @@
             .proof-item {
                 font-size: 0.9rem;
             }
-        }
 
-        /* Loading Animation */
-        @keyframes shimmer {
-            0% {
-                background-position: -1000px 0;
+            .step-item,
+            .step-item[data-step="2"],
+            .step-item[data-step="4"] {
+                flex-direction: column;
+                text-align: center;
+                transform: translateY(30px);
+                gap: 1.5rem;
             }
-            100% {
-                background-position: 1000px 0;
+
+            .step-item.active {
+                transform: translateY(0);
+            }
+
+            .step-icon-circle {
+                width: 100px;
+                height: 100px;
+            }
+
+            .step-icon-circle i {
+                font-size: 2.5rem;
+            }
+
+            .step-connector {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .demo-input-text {
+                font-size: 0.9rem;
+            }
+
+            .json-display {
+                font-size: 0.75rem;
+                padding: 1rem;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Custom Cursor -->
+    <div class="cursor-circle" id="cursorCircle"></div>
+
     <!-- Scroll Progress Bar -->
     <div class="scroll-progress" id="scrollProgress"></div>
 
@@ -1164,6 +1302,312 @@
                     <i class="fab fa-youtube"></i>
                     Watch 2-Minute Demo
                 </a>
+
+                <!-- Interactive Demo -->
+                <div class="demo-section">
+                    <div class="demo-examples">
+                        <!-- Example 1: Sales Funnel -->
+                        <div class="demo-container">
+                            <div class="demo-input" onclick="toggleDemo(0)">
+                                <span class="demo-input-text">"design me a sales funnel for my startup"</span>
+                                <span class="demo-arrow">▶</span>
+                            </div>
+                            <div class="demo-output" id="demoOutput0">
+                                <div class="demo-output-content">
+                                    <div class="demo-label">
+                                        <i class="fas fa-magic"></i>
+                                        REFINED PROMPT (JSON)
+                                    </div>
+                                    <div class="json-display">{
+  "prompt_analysis": {
+    "original_intent": "design me a sales funnel for my startup",
+    "request_category": "strategy",
+    "specificity_score": 6,
+    "ambiguity_points": [
+      {
+        "aspect": "Specific stages of the sales funnel",
+        "impact": "medium",
+        "resolution": "Define stages as Awareness, Interest, Desire, Action"
+      },
+      {
+        "aspect": "Target audience and user personas",
+        "impact": "high",
+        "resolution": "Identify target audience and demographics"
+      }
+    ]
+  },
+  "context_integration": {
+    "conversation_continuity": false,
+    "assumed_knowledge": "Basic sales funnel concepts"
+  },
+  "technical_specification": {
+    "deliverable_format": "visual_diagram",
+    "tools_suggested": ["Figma", "Miro", "Lucidchart"],
+    "content_structure": "Multi-stage funnel with conversion points"
+  },
+  "requirement_clarification": {
+    "functional_core": [
+      {
+        "feature": "Sales funnel stages",
+        "user_story": "Clear funnel stages with conversion metrics",
+        "acceptance_criteria": [
+          "Stage definitions",
+          "Conversion tracking",
+          "Actionable next steps"
+        ],
+        "priority": "critical"
+      }
+    ]
+  },
+  "enhanced_prompt": {
+    "primary_instruction": "Create a comprehensive sales funnel design",
+    "context_block": "Guide prospects through Awareness, Interest, Desire, Action",
+    "requirements_block": "Stage definitions, metrics, conversion strategies",
+    "output_guidance": "Detailed funnel diagram with optimization recommendations"
+  }
+}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Example 2: Calculus -->
+                        <div class="demo-container">
+                            <div class="demo-input" onclick="toggleDemo(1)">
+                                <span class="demo-input-text">"teach me all of calculus in 5 minutes"</span>
+                                <span class="demo-arrow">▶</span>
+                            </div>
+                            <div class="demo-output" id="demoOutput1">
+                                <div class="demo-output-content">
+                                    <div class="demo-label">
+                                        <i class="fas fa-magic"></i>
+                                        REFINED PROMPT (JSON)
+                                    </div>
+                                    <div class="json-display">{
+  "role": "Calculus Tutor for Intermediate Students",
+  "context": {
+    "background": "Fundamental mathematics branch studying continuous change",
+    "user_level": "intermediate",
+    "constraints": "5-minute overview focusing on key concepts",
+    "domain": "Mathematics",
+    "resources": "Khan Academy, MIT OpenCourseWare, Wolfram MathWorld"
+  },
+  "task": {
+    "primary_objective": "Comprehensive introduction to calculus essentials",
+    "sub_objectives": [
+      "Explain limits with examples and illustrations",
+      "Introduce derivatives and geometric interpretation",
+      "Discuss integrals and basic integration techniques",
+      "Highlight real-world applications"
+    ],
+    "success_criteria": "Clear, concise overview with problem-solving focus",
+    "intent": "learn"
+  },
+  "instructions": {
+    "approach": "Step-by-step breakdown with simple examples",
+    "format": "Explanatory text with formulas, diagrams, examples",
+    "style": "Informal, clear, student-friendly",
+    "emphasis": [
+      "Key concepts and formulas",
+      "Real-world applications",
+      "Visual aids and diagrams"
+    ]
+  },
+  "examples": {
+    "include_examples": true,
+    "example_types": [
+      "Simple optimization problems",
+      "Basic integration problems",
+      "Real-world physics/engineering applications"
+    ]
+  },
+  "output_requirements": {
+    "structure": "Introduction, key concepts, examples, conclusion",
+    "depth": "medium - detailed but concise",
+    "additional_elements": [
+      "Citations to reputable sources",
+      "Visual aids and diagrams",
+      "Practice problems with solutions"
+    ]
+  }
+}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Example 3: Logo Design -->
+                        <div class="demo-container">
+                            <div class="demo-input" onclick="toggleDemo(2)">
+                                <span class="demo-input-text">"make me a logo for my AI startup"</span>
+                                <span class="demo-arrow">▶</span>
+                            </div>
+                            <div class="demo-output" id="demoOutput2">
+                                <div class="demo-output-content">
+                                    <div class="demo-label">
+                                        <i class="fas fa-magic"></i>
+                                        REFINED PROMPT (JSON)
+                                    </div>
+                                    <div class="json-display">{
+  "generation_type": "image",
+  "subject": {
+    "main_subject": "Stylized AI letterform with circuits and neurons",
+    "secondary_elements": [
+      "Microchip textures",
+      "Sleek mechanical elements",
+      "Glowing blue technological accents"
+    ],
+    "composition": {
+      "framing": "Close-up with negative space",
+      "focal_point": "Center with subtle highlights",
+      "depth_layers": [
+        "Foreground logo with intricate details",
+        "Mid-ground subtle patterns",
+        "Background gradient or solid color"
+      ]
+    }
+  },
+  "visual_style": {
+    "art_medium": "Digital art with vector and raster elements",
+    "artistic_influences": [
+      "Minimalist design principles",
+      "Futuristic sci-fi concepts",
+      "Neural networks inspiration"
+    ],
+    "color_palette": {
+      "primary_colors": ["#03A9F4 tech blue", "#8BC34A innovation green"],
+      "secondary_colors": ["#FFFFFF clean white", "#212121 deep grey"],
+      "color_temperature": "neutral with cool tones",
+      "saturation_level": "vibrant but controlled"
+    }
+  },
+  "lighting": {
+    "light_source": "Softbox with subtle gradient",
+    "lighting_direction": "Front lit with subtle shadows",
+    "mood": "innovative, forward-thinking, professional",
+    "highlights": "Subtle to suggest advanced technology"
+  },
+  "camera_settings": {
+    "camera_angle": "Straight on with slight perspective",
+    "lens_type": "Standard 50mm wide aperture",
+    "depth_of_field": "Shallow to emphasize logo",
+    "focus_point": "Center of logo"
+  },
+  "atmosphere": {
+    "mood_descriptors": [
+      "Innovative",
+      "Technological",
+      "Professional",
+      "Dynamic"
+    ],
+    "color_grading": "Neutral with blue hints for technology"
+  },
+  "technical_specifications": {
+    "aspect_ratio": "1:1 for versatility",
+    "resolution": "high detail with crisp lines",
+    "quality_level": "highly detailed and professional",
+    "post_processing": [
+      "Subtle sharpening",
+      "Color correction",
+      "Gradated filter effects"
+    ]
+  },
+  "negative_prompts": {
+    "avoid_artifacts": ["blurry elements", "distorted lines"],
+    "exclude_elements": ["Cluttered backgrounds", "Unrelated symbols"],
+    "style_exclusions": ["Overly complex", "Amateurish elements"]
+  }
+}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Example 4: Y Combinator -->
+                        <div class="demo-container">
+                            <div class="demo-input" onclick="toggleDemo(3)">
+                                <span class="demo-input-text">"this product sucks make it so i get into yc pls"</span>
+                                <span class="demo-arrow">▶</span>
+                            </div>
+                            <div class="demo-output" id="demoOutput3">
+                                <div class="demo-output-content">
+                                    <div class="demo-label">
+                                        <i class="fas fa-magic"></i>
+                                        REFINED PROMPT (JSON)
+                                    </div>
+                                    <div class="json-display">{
+  "prompt_analysis": {
+    "original_intent": "Maximize product for Y Combinator acceptance",
+    "request_category": "feature_addition",
+    "specificity_score": 7,
+    "ambiguity_points": [
+      {
+        "aspect": "Max level features for YC",
+        "impact": "high",
+        "resolution": "Focus on uniqueness, scalability, real-world impact"
+      },
+      {
+        "aspect": "Innovative AI features",
+        "impact": "medium",
+        "resolution": "Consider NLP, computer vision, predictive analytics"
+      }
+    ]
+  },
+  "technical_specification": {
+    "tech_stack": {
+      "language": "Python or JavaScript",
+      "framework": "TensorFlow, PyTorch, or React",
+      "styling": "Material-UI or Tailwind CSS",
+      "rationale": "Balance speed, performance, maintainability"
+    },
+    "architecture_hints": {
+      "component_structure": "Microservices for scalability",
+      "data_flow": "Real-time processing and feedback"
+    },
+    "non_functional_requirements": {
+      "performance": "Low latency <100ms, high throughput >1000 req/s",
+      "accessibility": "WCAG 2.1 guidelines compliance",
+      "responsive_design": "Seamless across all devices"
+    }
+  },
+  "requirement_clarification": {
+    "functional_core": [
+      {
+        "feature": "AI-driven insights",
+        "user_story": "Actionable insights for informed decisions",
+        "acceptance_criteria": [
+          "Clear visualizations",
+          "Interactive exploration",
+          "AI recommendation explanations"
+        ],
+        "priority": "critical"
+      }
+    ]
+  },
+  "output_specification": {
+    "deliverable_type": "full_app",
+    "code_style": {
+      "verbosity": "balanced",
+      "comments": "moderate",
+      "type_safety": "strict"
+    },
+    "expected_completeness": "production_ready"
+  },
+  "enhanced_prompt": {
+    "primary_instruction": "Develop AI app to maximum potential for YC",
+    "requirements_block": [
+      "Distinctive AI-driven feature with real-world impact",
+      "Scalability and performance optimization",
+      "Intuitive and accessible UI",
+      "Clear AI benefit explanations",
+      "User feedback mechanism"
+    ],
+    "constraints_block": "Prioritize innovation, UX, and scalability",
+    "output_guidance": "Production-ready app with comprehensive documentation"
+  }
+}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1399,6 +1843,71 @@
     </footer>
 
     <script>
+        // Custom Cursor Circle with Dot
+        const cursorCircle = document.getElementById('cursorCircle');
+        let mouseX = 0, mouseY = 0;
+        let circleX = 0, circleY = 0;
+        const speed = 0.15;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animateCursor() {
+            const distX = mouseX - circleX;
+            const distY = mouseY - circleY;
+            
+            circleX += distX * speed;
+            circleY += distY * speed;
+            
+            cursorCircle.style.left = circleX + 'px';
+            cursorCircle.style.top = circleY + 'px';
+            
+            requestAnimationFrame(animateCursor);
+        }
+
+        animateCursor();
+
+        document.addEventListener('mousedown', () => {
+            cursorCircle.classList.add('clicking');
+        });
+
+        document.addEventListener('mouseup', () => {
+            cursorCircle.classList.remove('clicking');
+        });
+
+        // Hover effect for interactive elements
+        const interactiveElements = document.querySelectorAll('a, button, .demo-input');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursorCircle.style.transform = 'scale(1.5)';
+                cursorCircle.style.borderColor = 'rgba(0, 0, 0, 0.5)';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursorCircle.style.transform = 'scale(1)';
+                cursorCircle.style.borderColor = 'rgba(0, 0, 0, 0.3)';
+            });
+        });
+
+        // Interactive Demo Toggle
+        function toggleDemo(index) {
+            const demoInput = document.querySelectorAll('.demo-input')[index];
+            const demoOutput = document.getElementById('demoOutput' + index);
+            
+            // Close all other demos
+            document.querySelectorAll('.demo-input').forEach((input, i) => {
+                if (i !== index) {
+                    input.classList.remove('active');
+                    document.getElementById('demoOutput' + i).classList.remove('active');
+                }
+            });
+            
+            // Toggle current demo
+            demoInput.classList.toggle('active');
+            demoOutput.classList.toggle('active');
+        }
+
         // Mobile menu toggle
         function toggleMobileMenu() {
             const navLinks = document.getElementById('navLinks');
@@ -1430,7 +1939,7 @@
             });
         }, observerOptions);
 
-        // Interactive Steps Observer - Individual step observation
+        // Interactive Steps Observer
         const stepsObserver = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
@@ -1466,13 +1975,11 @@
                 observer.observe(el);
             });
 
-            // Observe each step item individually
             const stepItems = document.querySelectorAll('.step-item');
             stepItems.forEach(item => {
                 stepsObserver.observe(item);
             });
 
-            // Observe each connector individually
             const connectors = document.querySelectorAll('.step-connector');
             connectors.forEach(connector => {
                 connectorObserver.observe(connector);
@@ -1492,25 +1999,6 @@
                     document.getElementById('navLinks').classList.remove('active');
                 }
             });
-        });
-
-        // Add hover effect to buttons
-        document.querySelectorAll('.primary-download, .download-btn').forEach(button => {
-            button.addEventListener('mouseenter', function(e) {
-                this.style.transform = 'translateY(-3px) scale(1.02)';
-            });
-            
-            button.addEventListener('mouseleave', function(e) {
-                this.style.transform = 'translateY(0) scale(1)';
-            });
-        });
-
-        // Parallax effect on scroll (subtle)
-        let lastScrollTop = 0;
-        window.addEventListener('scroll', () => {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            const direction = scrollTop > lastScrollTop ? 'down' : 'up';
-            lastScrollTop = scrollTop;
         });
     </script>
 </body>
