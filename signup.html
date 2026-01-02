@@ -34,15 +34,26 @@
       box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
     }
     
-    .logo {
+    .logo-container {
       width: 64px;
       height: 64px;
       margin: 0 auto 24px;
-      background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+      background: #ffffff;
       border-radius: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
+      padding: 12px;
+    }
+    
+    .logo-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    
+    .logo-fallback {
       font-size: 32px;
       font-weight: 700;
       color: #000000;
@@ -110,65 +121,12 @@
       line-height: 1.5;
     }
     
-    .google-btn {
+    /* Google Sign-In Button Container */
+    #google-signin-button {
       width: 100%;
-      padding: 16px 24px;
-      background: #ffffff;
-      border: none;
-      border-radius: 12px;
-      color: #1f2937;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      transition: all 0.2s ease;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       margin-bottom: 20px;
-    }
-    
-    .google-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-      background: #f9fafb;
-    }
-    
-    .google-btn:active {
-      transform: translateY(0);
-    }
-    
-    .google-btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      transform: none;
-    }
-    
-    .divider {
-      text-align: center;
-      margin: 24px 0;
-      color: #64748b;
-      font-size: 13px;
-      position: relative;
-    }
-    
-    .divider::before,
-    .divider::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      width: 40%;
-      height: 1px;
-      background: rgba(255, 255, 255, 0.1);
-    }
-    
-    .divider::before {
-      left: 0;
-    }
-    
-    .divider::after {
-      right: 0;
+      display: flex;
+      justify-content: center;
     }
     
     .signin-link {
@@ -183,6 +141,7 @@
       text-decoration: none;
       font-weight: 600;
       transition: color 0.2s ease;
+      cursor: pointer;
     }
     
     .signin-link a:hover {
@@ -206,14 +165,58 @@
       margin-right: 8px;
     }
     
+    .success-box {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 12px;
+      padding: 16px;
+      color: #6ee7b7;
+      font-size: 14px;
+      margin-bottom: 20px;
+      display: none;
+      line-height: 1.5;
+    }
+    
+    .success-box i {
+      margin-right: 8px;
+    }
+    
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(4px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+    }
+    
+    .loading-content {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 32px;
+      text-align: center;
+    }
+    
     .loading-spinner {
-      display: inline-block;
-      width: 16px;
-      height: 16px;
-      border: 2px solid rgba(0, 0, 0, 0.1);
-      border-top-color: #1f2937;
+      width: 48px;
+      height: 48px;
+      border: 4px solid rgba(255, 255, 255, 0.1);
+      border-top-color: #ffffff;
       border-radius: 50%;
-      animation: spin 0.6s linear infinite;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 16px;
+    }
+    
+    .loading-text {
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 500;
     }
     
     @keyframes spin {
@@ -223,11 +226,16 @@
 </head>
 <body>
   <div class="signup-container">
-    <div class="logo">P</div>
+    <div class="logo-container">
+      <img id="logo-img" src="logo.png" alt="Promptify" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='block';">
+      <div id="logo-fallback" class="logo-fallback" style="display: none;">P</div>
+    </div>
+    
     <h1>Create Your Account</h1>
     <p class="subtitle">Join Promptify to enhance your AI prompts with advanced optimization</p>
     
     <div id="error-box" class="error-box"></div>
+    <div id="success-box" class="success-box"></div>
     
     <div class="features-list">
       <div class="features-title">Free Account Includes</div>
@@ -245,18 +253,19 @@
       </div>
     </div>
     
-    <button class="google-btn" id="google-signup-btn">
-      <svg width="20" height="20" viewBox="0 0 24 24">
-        <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-        <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-        <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-        <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-      </svg>
-      Sign up with Google
-    </button>
+    <!-- Google Sign-In Button (rendered by Google) -->
+    <div id="google-signin-button"></div>
     
     <div class="signin-link">
-      Already have an account? <a href="javascript:void(0)" id="signin-link">Sign in</a>
+      Already have an account? <a id="signin-link">Sign in</a>
+    </div>
+  </div>
+  
+  <!-- Loading Overlay -->
+  <div id="loading-overlay" class="loading-overlay">
+    <div class="loading-content">
+      <div class="loading-spinner"></div>
+      <div class="loading-text">Creating your account...</div>
     </div>
   </div>
   
@@ -265,10 +274,10 @@
     // ⚠️ CONFIGURATION - REPLACE THESE VALUES
     const WORKER_URL = 'https://promptify-auth.promptify-api.workers.dev';
     const GOOGLE_CLIENT_ID = '1016935983480-s9lsbfb0m8snp006ecp37ks98kbg1a9c.apps.googleusercontent.com';
-    const REDIRECT_URI = window.location.origin + '/signup.html';
     
-    const signupBtn = document.getElementById('google-signup-btn');
     const errorBox = document.getElementById('error-box');
+    const successBox = document.getElementById('success-box');
+    const loadingOverlay = document.getElementById('loading-overlay');
     const signinLink = document.getElementById('signin-link');
     
     let isProcessing = false;
@@ -276,49 +285,58 @@
     function showError(message) {
       errorBox.innerHTML = `<i class="fas fa-exclamation-circle"></i>${message}`;
       errorBox.style.display = 'block';
-      setTimeout(() => {
-        errorBox.style.display = 'none';
-      }, 8000);
+      successBox.style.display = 'none';
     }
     
-    function hideError() {
+    function showSuccess(message) {
+      successBox.innerHTML = `<i class="fas fa-check-circle"></i>${message}`;
+      successBox.style.display = 'block';
       errorBox.style.display = 'none';
     }
     
-    function setButtonLoading(loading) {
-      if (loading) {
-        signupBtn.innerHTML = '<span class="loading-spinner"></span> Creating account...';
-        signupBtn.disabled = true;
-      } else {
-        signupBtn.innerHTML = `
-          <svg width="20" height="20" viewBox="0 0 24 24">
-            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-          </svg>
-          Sign up with Google
-        `;
-        signupBtn.disabled = false;
-      }
+    function hideMessages() {
+      errorBox.style.display = 'none';
+      successBox.style.display = 'none';
     }
     
-    // Initialize Google Sign-In when loaded
+    function showLoading() {
+      loadingOverlay.style.display = 'flex';
+    }
+    
+    function hideLoading() {
+      loadingOverlay.style.display = 'none';
+    }
+    
+    // Initialize Google Sign-In when the library loads
     window.onload = function() {
       google.accounts.id.initialize({
         client_id: GOOGLE_CLIENT_ID,
         callback: handleCredentialResponse,
         auto_select: false,
-        cancel_on_tap_outside: true
       });
+      
+      // Render the sign-in button
+      google.accounts.id.renderButton(
+        document.getElementById('google-signin-button'),
+        {
+          theme: 'filled_white',
+          size: 'large',
+          width: 400,
+          text: 'signup_with',
+          shape: 'rectangular',
+          logo_alignment: 'left'
+        }
+      );
+      
+      console.log('✅ Google Sign-In initialized');
     };
     
     // Handle the credential response from Google
     async function handleCredentialResponse(response) {
       if (isProcessing) return;
       
-      hideError();
-      setButtonLoading(true);
+      hideMessages();
+      showLoading();
       isProcessing = true;
       
       try {
@@ -333,9 +351,10 @@
           picture: payload.picture
         };
         
-        console.log('Google sign-in successful:', googleUser.email);
+        console.log('📧 Google sign-in successful:', googleUser.email);
         
         // Create account in your database
+        console.log('📡 Sending to worker:', WORKER_URL);
         const signupResponse = await fetch(`${WORKER_URL}/register-user`, {
           method: 'POST',
           headers: {
@@ -351,10 +370,13 @@
         });
         
         if (!signupResponse.ok) {
+          const errorText = await signupResponse.text();
+          console.error('❌ Server error:', signupResponse.status, errorText);
           throw new Error(`Server error: ${signupResponse.status}`);
         }
         
         const data = await signupResponse.json();
+        console.log('📥 Server response:', data);
         
         if (data.success) {
           console.log('✅ Account created successfully');
@@ -373,59 +395,53 @@
           const urlParams = new URLSearchParams(window.location.search);
           const fromExtension = urlParams.get('from') === 'extension';
           
+          hideLoading();
+          showSuccess('Account created successfully! ' + (fromExtension ? 'You can now close this tab.' : 'Redirecting...'));
+          
           // Store user data
           if (typeof chrome !== 'undefined' && chrome.storage) {
             // Extension context
             chrome.storage.local.set({ promptify_user: userData }, () => {
-              alert('✅ Account created successfully! You can now close this tab.');
-              if (fromExtension) {
-                window.close();
-              }
+              setTimeout(() => {
+                if (fromExtension) {
+                  window.close();
+                } else {
+                  window.location.href = '/';
+                }
+              }, 2000);
             });
           } else {
             // Web context
             localStorage.setItem('promptify_user', JSON.stringify(userData));
-            alert('✅ Account created successfully! Redirecting...');
-            window.location.href = '/';
+            setTimeout(() => {
+              window.location.href = '/';
+            }, 2000);
           }
         } else {
           throw new Error(data.message || 'Failed to create account');
         }
         
       } catch (error) {
-        console.error('Signup error:', error);
+        console.error('❌ Signup error:', error);
+        hideLoading();
         showError('Failed to create account. Please try again or contact support.');
-        setButtonLoading(false);
         isProcessing = false;
       }
     }
     
-    // Sign up button click handler
-    signupBtn.addEventListener('click', () => {
-      if (isProcessing) return;
-      hideError();
-      
-      // Trigger Google Sign-In popup
-      google.accounts.id.prompt((notification) => {
-        if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-          // Fallback: show One Tap if popup fails
-          console.log('Popup blocked, trying alternative method');
-          showError('Please enable popups for this site or try again.');
-        }
-      });
-    });
-    
     // Sign in link handler
     signinLink.addEventListener('click', (e) => {
       e.preventDefault();
-      // Check if we should go to extension or website signin
+      
       const urlParams = new URLSearchParams(window.location.search);
       const fromExtension = urlParams.get('from') === 'extension';
       
       if (fromExtension) {
-        alert('Please use the Sign In button in the extension settings.');
+        // Close this tab and let them sign in from extension
+        alert('Please use the "Sign In" button in the Promptify extension settings.');
         window.close();
       } else {
+        // Redirect to signin page
         window.location.href = '/signin.html';
       }
     });
