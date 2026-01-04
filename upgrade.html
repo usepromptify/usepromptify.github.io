@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upgrade to Pro - Promptify</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      color: #ffffff;
+    }
+    
+    .upgrade-container {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 48px;
+      max-width: 600px;
+      width: 100%;
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+    }
+    
+    .logo-container {
+      width: 96px;
+      height: 96px;
+      margin: 0 auto 24px;
+      background: #ffffff;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 12px;
+    }
+    
+    .logo-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    
+    h1 {
+      text-align: center;
+      font-size: 36px;
+      margin-bottom: 8px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ffffff 0%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .subtitle {
+      text-align: center;
+      color: #94a3b8;
+      font-size: 16px;
+      margin-bottom: 36px;
+    }
+    
+    .price-box {
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 32px;
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    
+    .price {
+      font-size: 56px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1;
+    }
+    
+    .price-period {
+      color: #94a3b8;
+      font-size: 18px;
+      margin-top: 8px;
+    }
+    
+    .features-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 20px;
+    }
+    
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .feature-item:last-child {
+      border-bottom: none;
+    }
+    
+    .feature-icon {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #10b981;
+      font-size: 16px;
+    }
+    
+    .feature-text {
+      color: #e2e8f0;
+      font-size: 15px;
+    }
+    
+    .upgrade-btn {
+      width: 100%;
+      padding: 18px;
+      background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+      color: #000000;
+      border: none;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 24px;
+    }
+    
+    .upgrade-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(255, 255, 255, 0.2);
+    }
+    
+    .upgrade-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    .error-box {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      border-radius: 12px;
+      padding: 16px;
+      color: #fca5a5;
+      font-size: 14px;
+      margin-bottom: 20px;
+      display: none;
+    }
+    
+    .loading {
+      text-align: center;
+      color: #94a3b8;
+      margin-top: 16px;
+      display: none;
+    }
+    
+    .back-link {
+      text-align: center;
+      margin-top: 24px;
+    }
+    
+    .back-link a {
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+    
+    .back-link a:hover {
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+  <div class="upgrade-container">
+    <div class="logo-container">
+      <img src="icons/logo_inv.png" alt="Promptify">
+    </div>
+    
+    <h1>Promptify Pro</h1>
+    <p class="subtitle">Unlock the full potential of AI prompt engineering</p>
+    
+    <div id="error-box" class="error-box"></div>
+    
+    <div class="price-box">
+      <div class="price">$8.99</div>
+      <div class="price-period">per month</div>
+    </div>
+    
+    <div class="features-title">Pro Features</div>
+    <div class="feature-item">
+      <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+      <div class="feature-text"><strong>20 prompts per hour</strong> (vs 5 free)</div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon"><i class="fas fa-robot"></i></div>
+      <div class="feature-text"><strong>5 agent mode uses per hour</strong></div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon"><i class="fas fa-link"></i></div>
+      <div class="feature-text"><strong>5 prompt chains per hour</strong></div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon"><i class="fas fa-folder"></i></div>
+      <div class="feature-text"><strong>Unlimited folders & saves</strong></div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon"><i class="fas fa-sliders-h"></i></div>
+      <div class="feature-text"><strong>Advanced customization</strong></div>
+    </div>
+    <div class="feature-item">
+      <div class="feature-icon"><i class="fas fa-magic"></i></div>
+      <div class="feature-text"><strong>Prompt refinement tools</strong></div>
+    </div>
+    
+    <button id="upgrade-btn" class="upgrade-btn">
+      <i class="fas fa-crown"></i> Upgrade to Pro
+    </button>
+    
+    <div id="loading" class="loading">
+      <i class="fas fa-spinner fa-spin"></i> Redirecting to checkout...
+    </div>
+    
+    <div class="back-link">
+      <a href="index.html">← Back to home</a>
+    </div>
+  </div>
+  
+  <script>
+    const STRIPE_WORKER_URL = 'https://promptify-stripe.promptify-api.workers.dev';
+    
+    const upgradeBtn = document.getElementById('upgrade-btn');
+    const errorBox = document.getElementById('error-box');
+    const loading = document.getElementById('loading');
+    
+    function showError(message) {
+      errorBox.textContent = message;
+      errorBox.style.display = 'block';
+    }
+    
+    function hideError() {
+      errorBox.style.display = 'none';
+    }
+    
+    upgradeBtn.addEventListener('click', async () => {
+      hideError();
+      
+      // Get user from storage
+      let user;
+      if (typeof chrome !== 'undefined' && chrome.storage) {
+        user = await new Promise(resolve => {
+          chrome.storage.local.get(['promptify_user'], result => {
+            resolve(result.promptify_user);
+          });
+        });
+      } else {
+        const userData = localStorage.getItem('promptify_user');
+        user = userData ? JSON.parse(userData) : null;
+      }
+      
+      if (!user || !user.id || !user.email) {
+        showError('Please sign in first');
+        setTimeout(() => {
+          window.location.href = 'signup.html';
+        }, 2000);
+        return;
+      }
+      
+      upgradeBtn.disabled = true;
+      loading.style.display = 'block';
+      
+      try {
+        const response = await fetch(`${STRIPE_WORKER_URL}/create-checkout-session`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            google_id: user.id,
+            email: user.email
+          })
+        });
+        
+        if (!response.ok) {
+          throw new Error('Failed to create checkout session');
+        }
+        
+        const data = await response.json();
+        
+        // Redirect to Stripe checkout
+        window.location.href = data.url;
+        
+      } catch (error) {
+        console.error('Upgrade error:', error);
+        showError('Failed to start checkout. Please try again.');
+        upgradeBtn.disabled = false;
+        loading.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
