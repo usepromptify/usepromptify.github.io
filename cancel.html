@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cancel Subscription - Promptify</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -11,121 +13,165 @@
       box-sizing: border-box;
     }
 
+    :root {
+      --primary: #000000;
+      --primary-dark: #1a1a1a;
+      --secondary: #64748b;
+      --light: #f8fafc;
+      --border: #e2e8f0;
+      --text-primary: #1e293b;
+      --text-secondary: #64748b;
+      --error: #dc2626;
+      --success: #10b981;
+    }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
-      background: #000000;
-      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      background: var(--light);
+      color: var(--text-primary);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      padding: 20px;
+      padding: 2rem;
     }
 
+    /* Navigation */
+    nav {
+      width: 100%;
+      max-width: 800px;
+      padding: 2rem 0;
+      margin-bottom: 2rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+
+    .logo img {
+      height: 40px;
+      width: auto;
+      border-radius: 8px;
+    }
+
+    .logo span {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    /* Container */
     .container {
       width: 100%;
-      max-width: 500px;
-      background: #1a1a1a;
-      border-radius: 16px;
-      padding: 40px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.6);
+      max-width: 600px;
+      background: white;
+      border-radius: 20px;
+      padding: 3rem;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     }
 
     h1 {
-      font-size: 24px;
+      font-size: 2rem;
       font-weight: 700;
-      margin-bottom: 8px;
-      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+      color: var(--text-primary);
     }
 
     .subtitle {
-      font-size: 15px;
-      color: #94a3b8;
-      margin-bottom: 32px;
-      line-height: 1.5;
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
     }
 
     .message {
-      padding: 14px 16px;
+      padding: 1rem 1.25rem;
       border-radius: 10px;
-      margin-bottom: 24px;
+      margin-bottom: 2rem;
       display: none;
-      font-size: 14px;
+      font-size: 0.95rem;
       font-weight: 500;
     }
 
     .message.success {
-      background: rgba(16, 185, 129, 0.15);
+      background: rgba(16, 185, 129, 0.1);
       border: 1px solid rgba(16, 185, 129, 0.3);
-      color: #10b981;
+      color: var(--success);
     }
 
     .message.error {
-      background: rgba(239, 68, 68, 0.15);
-      border: 1px solid rgba(239, 68, 68, 0.3);
-      color: #ef4444;
+      background: rgba(220, 38, 38, 0.1);
+      border: 1px solid rgba(220, 38, 38, 0.3);
+      color: var(--error);
     }
 
     label {
       display: block;
-      font-size: 14px;
+      font-size: 0.95rem;
       font-weight: 600;
-      color: #e2e8f0;
-      margin-bottom: 10px;
+      color: var(--text-primary);
+      margin-bottom: 0.75rem;
     }
 
     textarea {
       width: 100%;
-      padding: 14px 16px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 1rem;
+      background: white;
+      border: 1px solid var(--border);
       border-radius: 10px;
-      color: #ffffff;
-      font-size: 14px;
+      color: var(--text-primary);
+      font-size: 0.95rem;
       font-family: inherit;
       resize: vertical;
       min-height: 120px;
-      margin-bottom: 24px;
+      margin-bottom: 2rem;
       transition: all 0.2s ease;
     }
 
     textarea:focus {
       outline: none;
-      border-color: rgba(255, 255, 255, 0.3);
-      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--primary);
     }
 
     textarea::placeholder {
-      color: #64748b;
+      color: var(--secondary);
     }
 
     .button-group {
       display: flex;
-      gap: 12px;
+      gap: 1rem;
+      flex-direction: row-reverse;
     }
 
     button {
       flex: 1;
-      padding: 14px 24px;
-      border-radius: 10px;
-      font-size: 15px;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.3s ease;
       font-family: inherit;
       border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
     }
 
     .btn-cancel {
-      background: #ef4444;
-      color: #ffffff;
+      background: var(--error);
+      color: white;
     }
 
     .btn-cancel:hover {
-      background: #dc2626;
+      background: #b91c1c;
       transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
     }
 
     .btn-cancel:disabled {
@@ -135,28 +181,28 @@
     }
 
     .btn-keep {
-      background: rgba(255, 255, 255, 0.1);
-      color: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: var(--primary);
+      color: white;
     }
 
     .btn-keep:hover {
-      background: rgba(255, 255, 255, 0.15);
-      border-color: rgba(255, 255, 255, 0.3);
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
 
     .loading {
       display: none;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 0.5rem;
     }
 
     .spinner {
-      width: 14px;
-      height: 14px;
+      width: 16px;
+      height: 16px;
       border: 2px solid rgba(255, 255, 255, 0.3);
-      border-top-color: #ffffff;
+      border-top-color: white;
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
     }
@@ -166,41 +212,59 @@
     }
 
     .footer {
-      margin-top: 24px;
+      margin-top: 2rem;
       text-align: center;
-      font-size: 13px;
-      color: #64748b;
+      font-size: 0.9rem;
+      color: var(--secondary);
     }
 
     .footer a {
-      color: #94a3b8;
+      color: var(--text-primary);
       text-decoration: none;
       transition: color 0.2s;
     }
 
     .footer a:hover {
-      color: #ffffff;
+      color: var(--primary);
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 2rem 1.5rem;
+      }
+
+      .button-group {
+        flex-direction: column-reverse;
+      }
+
+      h1 {
+        font-size: 1.75rem;
+      }
     }
   </style>
 </head>
 <body>
+  <nav>
+    <a href="https://joinpromptify.com" class="logo">
+      <img src="logo.png" alt="Promptify">
+      <span>Promptify</span>
+    </a>
+  </nav>
+
   <div class="container">
     <h1>Cancel Subscription</h1>
-    <p class="subtitle">We're sorry to see you go. Mind sharing why?</p>
+    <p class="subtitle">We're sorry to see you go. We'd love to hear why you're canceling to help us improve.</p>
 
     <div id="message" class="message"></div>
 
     <form id="cancelForm">
-      <label for="feedback">Tell us why you're canceling (optional)</label>
+      <label for="feedback">What made you decide to cancel? (optional)</label>
       <textarea 
         id="feedback" 
-        placeholder="e.g., Too expensive, not using it enough, missing features..."
+        placeholder="e.g., Too expensive, not using it enough, missing features I need..."
       ></textarea>
 
       <div class="button-group">
-        <button type="button" class="btn-keep" onclick="window.location.href='https://joinpromptify.com'">
-          Keep Pro
-        </button>
         <button type="submit" class="btn-cancel" id="submitBtn">
           <span id="cancelText">Cancel Subscription</span>
           <div id="cancelLoading" class="loading">
@@ -208,25 +272,38 @@
             <span>Processing...</span>
           </div>
         </button>
+        <button type="button" class="btn-keep" onclick="window.location.href='https://joinpromptify.com'">
+          <i class="fas fa-arrow-left"></i>
+          Keep Pro
+        </button>
       </div>
     </form>
+  </div>
 
-    <div class="footer">
-      Need help? <a href="mailto:support@joinpromptify.com">Contact Support</a>
-    </div>
+  <div class="footer">
+    Need help? <a href="mailto:support@joinpromptify.com">Contact Support</a>
   </div>
 
   <script>
-    // Get user from Chrome extension storage
+    // Get user from storage (works in both extension and web contexts)
     async function getCurrentUser() {
       return new Promise((resolve) => {
-        if (typeof chrome !== 'undefined' && chrome.storage) {
+        // Try Chrome extension storage first
+        if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
           chrome.storage.local.get(['promptify_user'], (result) => {
-            resolve(result.promptify_user || null);
+            if (chrome.runtime.lastError) {
+              console.log('Chrome storage not available, checking localStorage');
+              // Fallback to localStorage
+              const userData = localStorage.getItem('promptify_user');
+              resolve(userData ? JSON.parse(userData) : null);
+            } else {
+              resolve(result.promptify_user || null);
+            }
           });
         } else {
-          // Fallback for testing outside extension
-          resolve(null);
+          // Fallback to localStorage if not in extension
+          const userData = localStorage.getItem('promptify_user');
+          resolve(userData ? JSON.parse(userData) : null);
         }
       });
     }
@@ -240,9 +317,16 @@
       const message = document.getElementById('message');
       
       // Get user
+      console.log('Getting current user...');
       const user = await getCurrentUser();
-      if (!user) {
-        showMessage('Please sign in to cancel your subscription.', 'error');
+      console.log('Current user:', user);
+      
+      if (!user || !user.id) {
+        console.error('No user found in storage');
+        showMessage('Please sign in to cancel your subscription. Redirecting...', 'error');
+        setTimeout(() => {
+          window.location.href = 'https://joinpromptify.com';
+        }, 2000);
         return;
       }
       
@@ -255,8 +339,9 @@
       try {
         const feedback = document.getElementById('feedback').value.trim();
         
+        console.log('Calling cancel-subscription endpoint...');
         // Call cancellation endpoint
-        const response = await fetch('https://promptify-stripe.promptify-stripe.workers.dev/cancel-subscription', {
+        const response = await fetch('https://promptify-stripe.promptify-api.workers.dev/cancel-subscription', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -267,13 +352,29 @@
           })
         });
         
+        console.log('Response status:', response.status);
         const data = await response.json();
+        console.log('Response data:', data);
         
         if (!response.ok) {
           throw new Error(data.error || 'Failed to cancel subscription');
         }
         
-        // Success
+        // Success - update local storage
+        if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
+          try {
+            user.tier = 'free';
+            chrome.storage.local.set({ promptify_user: user });
+          } catch (e) {
+            // If chrome storage fails, update localStorage
+            user.tier = 'free';
+            localStorage.setItem('promptify_user', JSON.stringify(user));
+          }
+        } else {
+          user.tier = 'free';
+          localStorage.setItem('promptify_user', JSON.stringify(user));
+        }
+        
         showMessage('Subscription canceled successfully. You can continue using Pro until the end of your billing period.', 'success');
         
         // Redirect after 3 seconds
@@ -298,6 +399,21 @@
       message.className = `message ${type}`;
       message.style.display = 'block';
     }
+
+    // Check if user is signed in on page load
+    async function checkAuth() {
+      const user = await getCurrentUser();
+      console.log('Page loaded. User status:', user);
+      if (!user || !user.id) {
+        showMessage('You need to be signed in to cancel your subscription. Redirecting...', 'error');
+        setTimeout(() => {
+          window.location.href = 'https://joinpromptify.com';
+        }, 2000);
+      }
+    }
+
+    // Run auth check on page load
+    checkAuth();
   </script>
 </body>
 </html>
