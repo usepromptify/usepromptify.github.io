@@ -1333,29 +1333,50 @@
         }
 
         async function openUpgradeModal() {
-            if (!currentUser) {
-                openAuthModal('signin');
-                return;
-            }
+    if (!currentUser) {
+        openAuthModal('signin');
+        return;
+    }
 
+    try {
+        console.log('Starting checkout with:', {
+            google_id: currentUser.id,
+            email: currentUser.email
+        });
+        
+        const response = await fetch(`${STRIPE_WORKER_URL}/create-checkout-session`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                google_id: currentUser.id,
+                email: currentUser.email
+            })
+        });
+
+        // Log the raw response
+        const responseText = await response.text();
+        console.log('Raw response:', responseText);
+        console.log('Response status:', response.status);
+
+        if (!response.ok) {
+            // Parse and show the actual error
             try {
-                const response = await fetch(`${STRIPE_WORKER_URL}/create-checkout-session`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        google_id: currentUser.id,
-                        email: currentUser.email
-                    })
-                });
-
-                if (!response.ok) throw new Error('Failed to create checkout');
-
-                const data = await response.json();
-                window.location.href = data.url;
-            } catch (error) {
-                alert('Failed to start checkout. Please try again.');
+                const errorData = JSON.parse(responseText);
+                console.error('Checkout error details:', errorData);
+                alert(`Checkout failed: ${errorData.error}\n\nDetails: ${errorData.details || 'No additional details'}`);
+            } catch (e) {
+                alert(`Checkout failed: ${responseText}`);
             }
+            return;
         }
+
+        const data = JSON.parse(responseText);
+        window.location.href = data.url;
+    } catch (error) {
+        console.error('Network/JS error:', error);
+        alert('Failed to start checkout: ' + error.message);
+    }
+}
 
         function showMessage(text, type) {
             const messageBox = document.getElementById('auth-message');
