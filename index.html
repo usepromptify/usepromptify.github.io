@@ -1276,8 +1276,12 @@
         }
 
         async function signInUser(googleUser) {
-            try {
-                const response = await fetch(`${WORKER_URL}/get-user?google_id=${googleUser.id}`);
+        try {
+            const response = await fetch(`${WORKER_URL}/verify-user`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ google_id: googleUser.id })
+            });
                 
                 if (!response.ok) {
                     showMessage('Account not found. Please sign up first.', 'error');
@@ -1285,14 +1289,19 @@
                 }
 
                 const data = await response.json();
-                
-                currentUser = {
-                    id: googleUser.id,
-                    email: googleUser.email,
-                    name: googleUser.name,
-                    picture: googleUser.picture,
-                    tier: data.subscription_tier || 'free'
-                };
+
+if (!data.exists) {
+    showMessage('Account not found. Please sign up first.', 'error');
+    return;
+}
+
+currentUser = {
+    id: googleUser.id,
+    email: googleUser.email,
+    name: googleUser.name,
+    picture: googleUser.picture,
+    tier: data.tier || 'free'
+};
                 
                 saveUser(currentUser);
                 showMessage('Signed in successfully!', 'success');
