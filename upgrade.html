@@ -185,6 +185,58 @@
     .back-link a:hover {
       color: #ffffff;
     }
+
+    .plan-toggle {
+    display: flex;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 4px;
+    margin-bottom: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.plan-btn {
+    flex: 1;
+    padding: 12px 20px;
+    background: transparent;
+    border: none;
+    color: #94a3b8;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.plan-btn.active {
+    background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+    color: #000000;
+}
+
+.plan-btn:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.save-badge {
+    background: #10b981;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.yearly-savings {
+    color: #10b981;
+    font-size: 14px;
+    margin-top: 8px;
+    font-weight: 500;
+}
   </style>
 </head>
 <body>
@@ -198,10 +250,22 @@
     
     <div id="error-box" class="error-box"></div>
     
-    <div class="price-box">
-      <div class="price">$8.99</div>
-      <div class="price-period">per month</div>
-    </div>
+    <div class="plan-toggle">
+      <button class="plan-btn active" id="monthly-btn" onclick="selectPlan('monthly')">Monthly</button>
+      <button class="plan-btn" id="yearly-btn" onclick="selectPlan('yearly')">Yearly <span class="save-badge">Save 7%</span></button>
+  </div>
+  
+  <div class="price-box">
+      <div id="monthly-price">
+          <div class="price">$8.99</div>
+          <div class="price-period">per month</div>
+      </div>
+      <div id="yearly-price" style="display: none;">
+          <div class="price">$99.99</div>
+          <div class="price-period">per year</div>
+          <div class="yearly-savings">That's just $8.33/month!</div>
+      </div>
+  </div>
     
     <div class="features-title">Pro Features</div>
     <div class="feature-item">
@@ -244,61 +308,81 @@
   
   <script>
     const STRIPE_WORKER_URL = 'https://promptify-stripe.promptify-api.workers.dev';
+
+const upgradeBtn = document.getElementById('upgrade-btn');
+const errorBox = document.getElementById('error-box');
+const loading = document.getElementById('loading');
+
+let selectedPlan = 'monthly';
+
+function selectPlan(plan) {
+    selectedPlan = plan;
     
-    const upgradeBtn = document.getElementById('upgrade-btn');
-    const errorBox = document.getElementById('error-box');
-    const loading = document.getElementById('loading');
+    // Update button states
+    document.getElementById('monthly-btn').classList.toggle('active', plan === 'monthly');
+    document.getElementById('yearly-btn').classList.toggle('active', plan === 'yearly');
     
-    function showError(message) {
-      errorBox.textContent = message;
-      errorBox.style.display = 'block';
-    }
+    // Update price display
+    document.getElementById('monthly-price').style.display = plan === 'monthly' ? 'block' : 'none';
+    document.getElementById('yearly-price').style.display = plan === 'yearly' ? 'block' : 'none';
     
-    function hideError() {
-      errorBox.style.display = 'none';
-    }
+    // Update button text
+    upgradeBtn.innerHTML = plan === 'yearly' 
+        ? '<i class="fas fa-crown"></i> Upgrade to Pro Yearly'
+        : '<i class="fas fa-crown"></i> Upgrade to Pro';
+}
+
+function showError(message) {
+    errorBox.textContent = message;
+    errorBox.style.display = 'block';
+}
+
+function hideError() {
+    errorBox.style.display = 'none';
+}
+
+upgradeBtn.addEventListener('click', async () => {
+    hideError();
     
-    upgradeBtn.addEventListener('click', async () => {
-      hideError();
-      
-      // Get user from storage
-      let user;
-      if (typeof chrome !== 'undefined' && chrome.storage) {
+    // Get user from storage
+    let user;
+    if (typeof chrome !== 'undefined' && chrome.storage) {
         user = await new Promise(resolve => {
-          chrome.storage.local.get(['promptify_user'], result => {
-            resolve(result.promptify_user);
-          });
+            chrome.storage.local.get(['promptify_user'], result => {
+                resolve(result.promptify_user);
+            });
         });
-      } else {
+    } else {
         const userData = localStorage.getItem('promptify_user');
         user = userData ? JSON.parse(userData) : null;
-      }
-      
-      if (!user || !user.id || !user.email) {
+    }
+    
+    if (!user || !user.id || !user.email) {
         showError('Please sign in first');
         setTimeout(() => {
-          window.location.href = 'signup.html';
+            window.location.href = 'signup.html';
         }, 2000);
         return;
-      }
-      
-      upgradeBtn.disabled = true;
-      loading.style.display = 'block';
-      
-      try {
+    }
+    
+    upgradeBtn.disabled = true;
+    loading.style.display = 'block';
+    
+    try {
         const response = await fetch(`${STRIPE_WORKER_URL}/create-checkout-session`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            google_id: user.id,
-            email: user.email
-          })
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                google_id: user.id,
+                email: user.email,
+                plan: selectedPlan  // 'monthly' or 'yearly'
+            })
         });
         
         if (!response.ok) {
-          throw new Error('Failed to create checkout session');
+            throw new Error('Failed to create checkout session');
         }
         
         const data = await response.json();
@@ -306,13 +390,20 @@
         // Redirect to Stripe checkout
         window.location.href = data.url;
         
-      } catch (error) {
+    } catch (error) {
         console.error('Upgrade error:', error);
         showError('Failed to start checkout. Please try again.');
         upgradeBtn.disabled = false;
         loading.style.display = 'none';
-      }
-    });
+    }
+});
+
+// Check for plan param in URL
+const urlParams = new URLSearchParams(window.location.search);
+const planParam = urlParams.get('plan');
+if (planParam === 'yearly') {
+    selectPlan('yearly');
+}
   </script>
 </body>
 </html>

@@ -461,12 +461,19 @@
         }
 
         .pricing-grid {
-            max-width: 1050px;
-            margin: 3.5rem auto 0;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 2rem;
-        }
+    max-width: 1200px;
+    margin: 3.5rem auto 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+@media (max-width: 1024px) {
+    .pricing-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+    }
+}
 
         .pricing-card {
             background: white;
@@ -1004,10 +1011,10 @@
                     </ul>
                     <button class="btn btn-secondary" onclick="openAuthModal('signup')">Get Started Free</button>
                 </div>
-
+            
                 <div class="pricing-card featured">
                     <div class="pricing-badge">MOST POPULAR</div>
-                    <div class="pricing-tier">Pro</div>
+                    <div class="pricing-tier">Pro Monthly</div>
                     <div class="pricing-price">$8.99<span>/month</span></div>
                     <ul class="pricing-features">
                         <li><i class="fas fa-check"></i> <span>20 enhancements per hour</span></li>
@@ -1017,7 +1024,23 @@
                         <li><i class="fas fa-check"></i> <span>Advanced customization</span></li>
                         <li><i class="fas fa-check"></i> <span>Priority support</span></li>
                     </ul>
-                    <button class="btn btn-primary" onclick="handleUpgradeClick()">Upgrade to Pro</button>
+                    <button class="btn btn-primary" onclick="handleUpgradeClick('monthly')">Upgrade Monthly</button>
+                </div>
+            
+                <div class="pricing-card">
+                    <div class="pricing-badge" style="background: #10b981;">BEST VALUE</div>
+                    <div class="pricing-tier">Pro Yearly</div>
+                    <div class="pricing-price">$99.99<span>/year</span></div>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: -0.25rem;">Save $7.89 (2+ months free)</p>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> <span>20 enhancements per hour</span></li>
+                        <li><i class="fas fa-check"></i> <span>Agent Mode (5 uses/hour)</span></li>
+                        <li><i class="fas fa-check"></i> <span>Prompt chains (5/hour)</span></li>
+                        <li><i class="fas fa-check"></i> <span>Unlimited saved prompts</span></li>
+                        <li><i class="fas fa-check"></i> <span>Advanced customization</span></li>
+                        <li><i class="fas fa-check"></i> <span>Priority support</span></li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="handleUpgradeClick('yearly')">Upgrade Yearly</button>
                 </div>
             </div>
         </section>
@@ -1307,6 +1330,12 @@ currentUser = {
                 showMessage('Signed in successfully!', 'success');
                 setTimeout(() => {
                     closeAuthModal();
+                    // Check if there's a pending upgrade
+const pendingPlan = sessionStorage.getItem('pendingUpgradePlan');
+if (pendingPlan) {
+    sessionStorage.removeItem('pendingUpgradePlan');
+    setTimeout(() => openUpgradeModal(pendingPlan), 500);
+}
                     updateUIForUser();
                 }, 1500);
             } catch (error) {
@@ -1333,15 +1362,17 @@ currentUser = {
             showMainPage();
         }
 
-        function handleUpgradeClick() {
-            if (!currentUser) {
-                openAuthModal('signup');
-            } else {
-                openUpgradeModal();
-            }
-        }
+        function handleUpgradeClick(plan = 'monthly') {
+    if (!currentUser) {
+        // Store the selected plan for after auth
+        sessionStorage.setItem('pendingUpgradePlan', plan);
+        openAuthModal('signup');
+    } else {
+        openUpgradeModal(plan);
+    }
+}
 
-        async function openUpgradeModal() {
+async function openUpgradeModal(plan = 'monthly') {
     if (!currentUser) {
         openAuthModal('signin');
         return;
@@ -1350,7 +1381,8 @@ currentUser = {
     try {
         console.log('Starting checkout with:', {
             google_id: currentUser.id,
-            email: currentUser.email
+            email: currentUser.email,
+            plan: plan
         });
         
         const response = await fetch(`${STRIPE_WORKER_URL}/create-checkout-session`, {
@@ -1358,17 +1390,16 @@ currentUser = {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 google_id: currentUser.id,
-                email: currentUser.email
+                email: currentUser.email,
+                plan: plan  // 'monthly' or 'yearly'
             })
         });
 
-        // Log the raw response
         const responseText = await response.text();
         console.log('Raw response:', responseText);
         console.log('Response status:', response.status);
 
         if (!response.ok) {
-            // Parse and show the actual error
             try {
                 const errorData = JSON.parse(responseText);
                 console.error('Checkout error details:', errorData);
