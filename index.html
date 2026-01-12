@@ -461,29 +461,34 @@
         }
 
         .pricing-grid {
-    max-width: 1200px;
+    max-width: 1100px;
     margin: 3.5rem auto 0;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
     .pricing-grid {
-        grid-template-columns: 1fr;
-        max-width: 400px;
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 700px;
     }
 }
 
-        .pricing-card {
-            background: white;
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 2.5rem;
-            position: relative;
-            transition: all 0.3s;
-        }
-
+@media (max-width: 768px) {
+    .pricing-grid {
+        grid-template-columns: 1fr;
+        max-width: 360px;
+    }
+}
+.pricing-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem;
+    position: relative;
+    transition: all 0.3s;
+}
         .pricing-card:hover {
             border-color: var(--primary);
             transform: translateY(-4px);
@@ -518,32 +523,33 @@
         }
 
         .pricing-price {
-            font-size: 3.25rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-            letter-spacing: -0.02em;
-        }
+    font-size: 2.75rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+}
 
-        .pricing-price span {
-            font-size: 1.15rem;
-            color: var(--text-secondary);
-            font-weight: 400;
-        }
+.pricing-price span {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+}
 
+.pricing-features li {
+    padding: 0.7rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-primary);
+    font-size: 0.875rem;
+}
+
+       
         .pricing-features {
             list-style: none;
             margin: 2.25rem 0;
-        }
-
-        .pricing-features li {
-            padding: 0.85rem 0;
-            display: flex;
-            align-items: center;
-            gap: 0.85rem;
-            border-bottom: 1px solid var(--border);
-            color: var(--text-primary);
-            font-size: 0.95rem;
         }
 
         .pricing-features li:last-child {
@@ -995,55 +1001,71 @@
         </section>
 
         <!-- Pricing Section -->
-        <section id="pricing" class="pricing">
-            <div class="section-header">
-                <h2 class="section-title">Simple, Transparent Pricing</h2>
-                <p class="section-subtitle">Choose the plan that works best for you</p>
-            </div>
-            <div class="pricing-grid">
-                <div class="pricing-card">
-                    <div class="pricing-tier">Free</div>
-                    <div class="pricing-price">$0<span>/month</span></div>
-                    <ul class="pricing-features">
-                        <li><i class="fas fa-check"></i> <span>3 enhancements per day</span></li>
-                        <li><i class="fas fa-check"></i> <span>1 agent use per day</span></li>
-                        <li><i class="fas fa-check"></i> <span>1 prompt chain per day</span></li>
-                    </ul>
-                    <button class="btn btn-secondary" onclick="openAuthModal('signup')">Get Started Free</button>
-                </div>
-            
-                <div class="pricing-card featured">
-                    <div class="pricing-badge">MOST POPULAR</div>
-                    <div class="pricing-tier">Pro Monthly</div>
-                    <div class="pricing-price">$8.99<span>/month</span></div>
-                    <ul class="pricing-features">
-                        <li><i class="fas fa-check"></i> <span>20 enhancements per hour</span></li>
-                        <li><i class="fas fa-check"></i> <span>Agent Mode (5 uses/hour)</span></li>
-                        <li><i class="fas fa-check"></i> <span>Prompt chains (5/hour)</span></li>
-                        <li><i class="fas fa-check"></i> <span>Unlimited saved prompts</span></li>
-                        <li><i class="fas fa-check"></i> <span>Advanced customization</span></li>
-                        <li><i class="fas fa-check"></i> <span>Priority support</span></li>
-                    </ul>
-                    <button class="btn btn-primary" onclick="handleUpgradeClick('monthly')">Upgrade Monthly</button>
-                </div>
-            
-                <div class="pricing-card">
-                    <div class="pricing-badge" style="background: #10b981;">BEST VALUE</div>
-                    <div class="pricing-tier">Pro Yearly</div>
-                    <div class="pricing-price">$99.99<span>/year</span></div>
-                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: -0.25rem;">Save $7.89 (2+ months free)</p>
-                    <ul class="pricing-features">
-                        <li><i class="fas fa-check"></i> <span>20 enhancements per hour</span></li>
-                        <li><i class="fas fa-check"></i> <span>Agent Mode (5 uses/hour)</span></li>
-                        <li><i class="fas fa-check"></i> <span>Prompt chains (5/hour)</span></li>
-                        <li><i class="fas fa-check"></i> <span>Unlimited saved prompts</span></li>
-                        <li><i class="fas fa-check"></i> <span>Advanced customization</span></li>
-                        <li><i class="fas fa-check"></i> <span>Priority support</span></li>
-                    </ul>
-                    <button class="btn btn-primary" onclick="handleUpgradeClick('yearly')">Upgrade Yearly</button>
-                </div>
-            </div>
-        </section>
+        <!-- Pricing Section -->
+<section id="pricing" class="pricing">
+    <div class="section-header">
+        <h2 class="section-title">Simple, Transparent Pricing</h2>
+        <p class="section-subtitle">Choose the plan that works best for you</p>
+    </div>
+    <div class="pricing-grid">
+        <div class="pricing-card">
+            <div class="pricing-tier">Free</div>
+            <div class="pricing-price">$0<span>/month</span></div>
+            <ul class="pricing-features">
+                <li><i class="fas fa-check"></i> <span>3 enhancements per day</span></li>
+                <li><i class="fas fa-check"></i> <span>1 agent use per day</span></li>
+                <li><i class="fas fa-check"></i> <span>1 prompt chain per day</span></li>
+            </ul>
+            <button class="btn btn-secondary" onclick="openAuthModal('signup')">Get Started Free</button>
+        </div>
+    
+        <div class="pricing-card featured">
+            <div class="pricing-badge">POPULAR</div>
+            <div class="pricing-tier">Pro Monthly</div>
+            <div class="pricing-price">$8.99<span>/month</span></div>
+            <ul class="pricing-features">
+                <li><i class="fas fa-check"></i> <span>20 enhancements per hour</span></li>
+                <li><i class="fas fa-check"></i> <span>Agent Mode (5 uses/hour)</span></li>
+                <li><i class="fas fa-check"></i> <span>Prompt chains (5/hour)</span></li>
+                <li><i class="fas fa-check"></i> <span>Unlimited saved prompts</span></li>
+                <li><i class="fas fa-check"></i> <span>Advanced customization</span></li>
+                <li><i class="fas fa-check"></i> <span>Priority support</span></li>
+            </ul>
+            <button class="btn btn-primary" onclick="handleUpgradeClick('monthly')">Upgrade Monthly</button>
+        </div>
+    
+        <div class="pricing-card">
+            <div class="pricing-badge" style="background: #10b981;">BEST VALUE</div>
+            <div class="pricing-tier">Pro Yearly</div>
+            <div class="pricing-price">$99.99<span>/year</span></div>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: -0.25rem;">Save $7.89 (2+ months free)</p>
+            <ul class="pricing-features">
+                <li><i class="fas fa-check"></i> <span>20 enhancements per hour</span></li>
+                <li><i class="fas fa-check"></i> <span>Agent Mode (5 uses/hour)</span></li>
+                <li><i class="fas fa-check"></i> <span>Prompt chains (5/hour)</span></li>
+                <li><i class="fas fa-check"></i> <span>Unlimited saved prompts</span></li>
+                <li><i class="fas fa-check"></i> <span>Advanced customization</span></li>
+                <li><i class="fas fa-check"></i> <span>Priority support</span></li>
+            </ul>
+            <button class="btn btn-primary" onclick="handleUpgradeClick('yearly')">Upgrade Yearly</button>
+        </div>
+
+        <div class="pricing-card">
+            <div class="pricing-tier">Custom</div>
+            <div class="pricing-price">Let's Talk</div>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: -0.25rem;">Tailored for your needs</p>
+            <ul class="pricing-features">
+                <li><i class="fas fa-check"></i> <span>Agent features on any LLM</span></li>
+                <li><i class="fas fa-check"></i> <span>Fully unlimited prompting</span></li>
+                <li><i class="fas fa-check"></i> <span>Custom solutions & integrations</span></li>
+                <li><i class="fas fa-check"></i> <span>Web app compatibility</span></li>
+                <li><i class="fas fa-check"></i> <span>Dedicated support</span></li>
+                <li><i class="fas fa-check"></i> <span>SLA & onboarding</span></li>
+            </ul>
+            <a href="https://calendly.com/krishnamalhotra150/30min" class="btn btn-primary">Contact</a>
+        </div>
+    </div>
+</section>
     </div>
 
     <!-- Account Page (Hidden by default) -->
